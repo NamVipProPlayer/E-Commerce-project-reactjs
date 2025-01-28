@@ -1,0 +1,12 @@
+.btn{
+    border-radius: 5px;
+    border: none;
+}
+.primary{
+    background-color: #9c27b0;
+    color: #fff;
+}
+.default{
+    background-color: #0063cc;
+    color: #333;
+}
