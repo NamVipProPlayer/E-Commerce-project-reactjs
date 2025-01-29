@@ -1,0 +1,14 @@
+@import "@styles/mixins.module.scss" ;
+
+.btn_heart{
+   @include btn_common(20vh, 30px, 10px, 1em, 3px)
+}
+.btn_add {
+   @include btn_add
+}
+.btn_default {
+    @include btn_common(20px, 20px, 0.5em, 0.5em, 1px)
+}
+.btn_buy {
+    @include btn_style(310px, 45px, 0.5em,black,white, 10px, 10px,7px);
+}

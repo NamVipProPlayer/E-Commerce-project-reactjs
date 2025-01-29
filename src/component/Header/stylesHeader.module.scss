@@ -1,0 +1,21 @@
+@import "@styles/mixins.module.scss";
+@import "@styles/variables.module.scss";
+
+.containerHeader {
+    display: flex;
+    align-items: center;
+}
+
+.containerFlexItems {
+    @include flex_box_icon(center, center, 10px);
+}
+.containerMenu {
+     @include flex_box_icon(center, center, 20px);
+}
+.boxIcon {
+    width: 26px;
+    height: 26px;
+    @include radius_common(50%);
+    background-color: $whiteColor;
+    @include flex_box_icon(center, center, 0px);
+}

@@ -1,13 +1,16 @@
 import { createContext, useState } from "react";
+import Button from "@component/Buton/Button";
+import MainLayout from "@component/Layout/Layout";
+import Header from "./component/Header/Header";
 
 export const ThemeContext = createContext();
 function App() {
-
-
-  return (
-    <div>
-      <h2>Hello Router React</h2>
-    </div>
-  );
+    return (
+        <>
+            <MainLayout>
+               <Header/>
+            </MainLayout>
+        </>
+    );
 }
 export default App;
