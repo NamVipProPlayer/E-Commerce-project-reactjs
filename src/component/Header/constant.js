@@ -1,7 +1,8 @@
 const dataBoxIcon = [
+    { type: "Search", href: "#" },
     { type: "Fav", href: "#" },
     { type: "BagItems", href: "#" },
-    { type: "Search", href: "#" }
+    
 ];
 const dataMenu = [
     { content: "Men", href: "#" },

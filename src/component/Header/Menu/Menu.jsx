@@ -1,5 +1,8 @@
+import styles from "../stylesHeader.module.scss";
+
 function Menu({ content, href }) {
-    return <div>{content}</div>;
+    const { menuhover } = styles;
+    return <div className={menuhover}>{content}</div>;  
 }
 
 export default Menu;

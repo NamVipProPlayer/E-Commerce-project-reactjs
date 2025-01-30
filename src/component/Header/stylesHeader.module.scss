@@ -1,21 +1,85 @@
-@import "@styles/mixins.module.scss";
-@import "@styles/variables.module.scss";
+@use "@styles/mixins.module.scss" as mixins;
+@use "@styles/variables.module.scss" as vars;
 
 .containerHeader {
-    display: flex;
-    align-items: center;
+  font-size: 1em;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #F5F5F5;
+  height: 83px;
+  padding: 10px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+  }
 }
 
 .containerFlexItems {
-    @include flex_box_icon(center, center, 10px);
+  @include mixins.flex_box_icon(center, center, 10px);
+  @media screen and (max-width: 768px) {
+    justify-content: flex-start;
+    margin-bottom: 10px;
+  }
 }
+
 .containerMenu {
-     @include flex_box_icon(center, center, 20px);
+  @include mixins.flex_box_icon(center, center, 20px);
+  @media screen and (max-width: 768px) {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 }
+
 .boxIcon {
-    width: 26px;
-    height: 26px;
-    @include radius_common(50%);
-    background-color: $whiteColor;
-    @include flex_box_icon(center, center, 0px);
+  width: 26px;
+  height: 26px;
+  @include mixins.radius_common(50%);
+  background-color: vars.$whiteColor;
+  @include mixins.flex_box_icon(center, center, 0px);
+
+  @media screen and (max-width: 768px) {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.menuhover::after {
+  height: 2px;
+  width: 100%;
+  content: '';
+  display: block;
+  background-color: vars.$primary;
+  transform-origin: right;
+  transform: scale(0);
+  transition: transform 300ms, opacity 200ms;
+  opacity: 0;
+}
+
+.menuhover:hover::after {
+  transform: scale(1);
+  opacity: 1;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 576px) {
+  .containerHeader {
+    font-size: 0.8em;
+    padding: 5px;
+  }
+
+  .menuhover::after {
+    height: 1px;
+  }
+
+  img {
+    width: 100px;
+    height: auto;
+  }
 }
