@@ -6,7 +6,7 @@ import styles from "./HomePage.module.scss";
 function HomePage() {
     const {container}=styles;
     return (
-        <div>
+        <div className={container}>
             <MainLayout>
                 <Header />
                 <Banner />

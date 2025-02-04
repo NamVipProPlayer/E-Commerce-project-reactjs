@@ -10,6 +10,7 @@
     left: 0;
     background-repeat: no-repeat;
     background-size: cover;
+   
 }
 .content {
     @include style.flex_box_icon(center, center, 20px);

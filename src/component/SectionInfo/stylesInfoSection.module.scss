@@ -1,0 +1,20 @@
+@use "@styles/variables.module.scss" as var;
+
+.container {
+    width: 1250px;
+    height: 145px;
+    background-color: var.$footerColor;
+    margin-top: -72.5px;
+    position:relative;
+    
+}
+
+
+.wrapLayout {
+    display: flex;
+    justify-content: center;
+}
+
+.containerSection {
+    width: 1250px;
+}

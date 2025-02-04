@@ -1,12 +1,18 @@
+
 import MainLayout from "@component/Layout/Layout.jsx";
-import styles from "@component/Layout/stylesLayout.module.scss";
+import styles from "@component/SectionInfo/stylesInfoSection.module.scss";
+import CardSection from "@component/SectionInfo/CardSection/CardSection";
+import { DataSecInFo } from "@component/SectionInfo/constantData";
 function InfoSection() {
-    const { wrapLayout, containerSection } = styles;
+    const { wrapLayout, containerSection, container } = styles;
     return (
         <div className={wrapLayout}>
             <MainLayout className={containerSection}>
-                <div>
-                    
+                <div className={container}>
+                    {/* {DataSecInFo.map((items) => {
+                        return ;
+                    })} */}
+                   
                 </div>
             </MainLayout>
         </div>
