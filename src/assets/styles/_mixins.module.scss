@@ -1,31 +1,36 @@
 //tap hop cac khoi code dung chung,
 //co the dynamic thay doi cac gia tri ma ko anh huong de project
 
-
 @mixin radius_common($radius: 7px) {
     border-radius: $radius;
 }
-@mixin flex_box_icon($x, $y, $gap: 10px){
+@mixin flex_box_icon($x, $y, $gap: 10px) {
     display: flex;
     justify-content: $x;
-    align-item: $y;
+    align-items: $y;
     gap: $gap;
-
 }
 
-@mixin btn_common($w, $h, $radius, $fontSize, $margin, $bgcolor: #fff, $fColor: #000000) {
+@mixin btn_common(
+    $w,
+    $h,
+    $radius,
+    $fontSize,
+    $margin,
+    $bgcolor: #fff,
+    $fColor: #000000
+) {
     min-width: $w;
     max-width: 30vh;
     height: $h;
-    background-color: $bgcolor;
-    color: $fColor;
     @include radius_common($radius);
     font-size: $fontSize;
-    border: 1px solid #e1e1e1;
     margin: $margin;
+    background-color: $bgcolor;
+    color: $fColor;
+    border: 1px solid #e1e1e1;
 }
 @mixin btn_add(
-    
     $bgcolor: #000000,
     $fColor: #ffffff,
     $padding: 10px 10px,
@@ -33,10 +38,8 @@
     $fontSize: 0.5em,
     $border: none,
     $radius: 10px,
-    $cursor: pointer,
-   
+    $cursor: pointer
 ) {
-    
     background-color: $bgcolor;
     color: $fColor;
     padding: $padding;
@@ -49,16 +52,15 @@
     min-height: fit-content;
 }
 @mixin btn_style(
-  $w,
-  $h,
-  $fontSize,
-  $bgColor: #000000,
-  $color: #fff,
-  $margin,
-  $padding,
-  $radius
+    $w,
+    $h,
+    $fontSize,
+    $bgColor: #000000,
+    $color: #fff,
+    $margin,
+    $padding,
+    $radius
 ) {
-  
     min-width: $w;
     min-height: fit-content;
     max-height: $h;
@@ -69,7 +71,4 @@
     padding: $padding;
     border: none;
     @include radius_common($radius);
-  
-  }
-
-
+}

@@ -12,5 +12,11 @@ const dataMenu = [
     { content: "Find a store", href: "#" },
     { content: "Sign In", href: "#" },
 ];
+const dataSlider =[
+    {type: "banner4", href: "#"},
+    {type: "banner", href: "#"},
+    {type: "banner3", href: "#"},
+    {type: "banner2", href: "#"},
+]
 
-export { dataBoxIcon, dataMenu };
+export { dataBoxIcon, dataMenu,dataSlider };

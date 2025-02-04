@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import BoxIcon from "./BoxIcon/BoxIcon";
 import { dataBoxIcon, dataMenu } from "./constant";
 import Menu from "./Menu/Menu";
@@ -19,37 +19,42 @@ function Header() {
         menuItems
     } = styles;
 
-   const [isMenuOpen, setIsMenuOpen] = useState(false);
-   const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth <= 828);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isScreenSmall, setIsScreenSmall] = useState(
+        window.innerWidth <= 828
+    );
 
-   const handleMenuToggle = () => {
-       setIsMenuOpen((prevState) => !prevState);
-   };
+    const handleMenuToggle = () => {
+        setIsMenuOpen((prevState) => !prevState);
+    };
 
-   // Detect screen size changes and update state
-   useEffect(() => {
-       const handleResize = () => {
-           setIsScreenSmall(window.innerWidth <= 828);
-           if (window.innerWidth > 828) {
-               setIsMenuOpen(false); // Close menu on large screens
-               
-           }
-       };
+    // Detect screen size changes and update state
+    useEffect(() => {
+        const handleResize = () => {
+            setIsScreenSmall(window.innerWidth <= 828);
+            if (window.innerWidth > 828) {
+                setIsMenuOpen(false); // Close menu on large screens
+            }
+        };
 
-       window.addEventListener("resize", handleResize);
-       console.log("menu is open");
-       return () => {
-           window.removeEventListener("resize", handleResize);
-           
-       };
-   }, []);
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     return (
         <nav className={containerHeader}>
             <div className={containerMenuBox}>
                 <div className={containerFlexItems}>
-                    {dataBoxIcon.slice(0, 1).map((items) => {
-                        return <BoxIcon type={items.type} href={items.href} />;
+                    {dataBoxIcon.slice(0, 1).map((items, index) => {
+                        return (
+                            <BoxIcon
+                                type={items.type}
+                                href={items.href}
+                                key={index}
+                            />
+                        );
                     })}
                 </div>
                 <div
@@ -80,8 +85,14 @@ function Header() {
                     ))}
                 </div>
                 <div className={containerFlexItems}>
-                    {dataBoxIcon.slice(1, 3).map((items) => {
-                        return <BoxIcon type={items.type} href={items.href} />;
+                    {dataBoxIcon.slice(1, 3).map((items, index) => {
+                        return (
+                            <BoxIcon
+                                type={items.type}
+                                href={items.href}
+                                key={index}
+                            />
+                        );
                     })}
                 </div>
             </div>
@@ -94,14 +105,10 @@ function Header() {
             )}
             <div className={`${menuOpen} ${isMenuOpen ? menuOpenActive : ""}`}>
                 <ul className={menuItems}>
-                    {dataMenu.map((items) => (
-                        <li>
+                    {dataMenu.map((items, index) => (
+                        <li key={index}>
                             {" "}
-                            <Menu
-                                key={items.content}
-                                content={items.content}
-                                href={items.href}
-                            />
+                            <Menu content={items.content} href={items.href} />
                         </li>
                     ))}
                 </ul>

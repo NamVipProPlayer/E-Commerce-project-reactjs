@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+  <!-- Card Background -->
+  <rect x="2" y="5" width="20" height="14" rx="2" fill="#E0E0E0" stroke="#000" stroke-width="1" />
+
+  <!-- Stripe Section -->
+  <rect x="2" y="7" width="20" height="3" fill="#000" />
+
+  <!-- Chip -->
+  <rect x="4" y="12" width="5" height="4" rx="1" fill="#333" />
+
+  <!-- Numbers Section -->
+  <text x="11" y="15" font-size="2.5" fill="#000" font-family="monospace">1234 5678 9876 5432</text>
+
+  <!-- Cardholder Name -->
+  <text x="4" y="18" font-size="2" fill="#333" font-family="Arial">CARDHOLDER NAME</text>
+</svg>
