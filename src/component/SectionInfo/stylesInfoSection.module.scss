@@ -1,7 +1,9 @@
 @use "@styles/variables.module.scss" as var;
 @use "@styles/mixins.module.scss" as mixin;
+
 .container {
-    width: 1090px;
+    width: 100%;
+    max-width: 1090px;
     height: 120px;
     background-color: transparent;
     opacity: 10;
@@ -19,24 +21,88 @@
 }
 
 .containerSection {
-    width: 1250px;
+    width: 100%;
+    max-width: 1250px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    height: 120px;
 }
+
 .containerCard {
     @include mixin.flex_box_icon(center, center, 15px);
     color: var.$bgPrimary;
     width: 280px;
     height: 104px;
 }
+
 .containerSpan {
     @include mixin.flex_box_icon(center, start, 0.5rem);
-
     flex-direction: column;
+
     .titles {
         font-size: 1em;
         font-weight: 600;
     }
+    
     .des {
         font-size: 0.8em;
         font-weight: 500;
+    }
+}
+.imgIcons{
+   @media screen and (max-width: 828px) {
+   font-size: 0.4em;
+   }
+}
+.containerCard {
+    @include mixin.flex_box_icon(center, center, 15px);
+    color: var.$bgPrimary;
+    width: 250px;
+    height: 104px;
+    opacity: 1; /* Hide all by default */
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.containerCard.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.containerCard.inactive {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+
+/* Add responsive media queries */
+@media screen and (max-width: 1255px) {
+    .container {
+        flex-direction: column;
+        padding: 10px;
+        height: auto;
+    }
+
+    .containerSection {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .containerCard {
+        width: 100%;
+        height: auto;
+    }
+
+    .containerSpan {
+        flex-direction: column;
+        justify-content: space-between;
+
+        .titles {
+            font-size: 0.9em;
+        }
+
+        .des {
+            font-size: 0.7em;
+        }
     }
 }
