@@ -1,14 +1,17 @@
 @use "@styles/variables.module.scss" as var;
-
+@use "@styles/mixins.module.scss" as mixin;
 .container {
-    width: 1250px;
-    height: 145px;
-    background-color: var.$footerColor;
-    margin-top: -72.5px;
-    position:relative;
-    
+    width: 1090px;
+    height: 120px;
+    background-color: transparent;
+    opacity: 10;
+    border: none;
+    box-shadow: 10px 10px 15px 10px rgba(255, 227, 227, 0.2);
+    margin-top: -205.5px;
+    padding: 0px 40px;
+    position: relative;
+    @include mixin.flex_box_icon(space-between, center, 7px);
 }
-
 
 .wrapLayout {
     display: flex;
@@ -17,4 +20,23 @@
 
 .containerSection {
     width: 1250px;
+}
+.containerCard {
+    @include mixin.flex_box_icon(center, center, 15px);
+    color: var.$bgPrimary;
+    width: 280px;
+    height: 104px;
+}
+.containerSpan {
+    @include mixin.flex_box_icon(center, start, 0.5rem);
+
+    flex-direction: column;
+    .titles {
+        font-size: 1em;
+        font-weight: 600;
+    }
+    .des {
+        font-size: 0.8em;
+        font-weight: 500;
+    }
 }

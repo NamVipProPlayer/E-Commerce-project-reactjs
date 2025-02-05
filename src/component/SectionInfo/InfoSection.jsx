@@ -1,4 +1,3 @@
-
 import MainLayout from "@component/Layout/Layout.jsx";
 import styles from "@component/SectionInfo/stylesInfoSection.module.scss";
 import CardSection from "@component/SectionInfo/CardSection/CardSection";
@@ -9,10 +8,16 @@ function InfoSection() {
         <div className={wrapLayout}>
             <MainLayout className={containerSection}>
                 <div className={container}>
-                    {/* {DataSecInFo.map((items) => {
-                        return ;
-                    })} */}
-                   
+                    {DataSecInFo.map((items) => {
+                        return (
+                            <CardSection
+                                title={items.title}
+                                description={items.description}
+                                href={items.href}
+                                src={items.src}
+                            />
+                        );
+                    })}
                 </div>
             </MainLayout>
         </div>
