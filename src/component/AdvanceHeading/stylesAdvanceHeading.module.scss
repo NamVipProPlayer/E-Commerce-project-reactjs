@@ -14,9 +14,9 @@
     padding-top: 10px;
 }
 .containerMidBox {
-    @include mixin.flex_box_icon(center, center, 10px);
+    @include mixin.flex_box_icon(center, center, 0px);
     width: 60%;
-    padding-top: 0px 40px;
+    padding-top: 0px 10px;
     flex-direction: column;
     line-height: normal;
 }
@@ -24,8 +24,10 @@
     font-size: 0.7em;
     text-transform: uppercase;
     color: var.$sencondary;
+    margin: 0px 10px;
 }
 .title {
+    margin: 10px 20px;
     font-size: 1.5em;
     color: var.$grey;
 }

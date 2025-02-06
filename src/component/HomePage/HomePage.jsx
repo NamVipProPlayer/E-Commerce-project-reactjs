@@ -4,6 +4,7 @@ import Banner from "@component/Banner/Banner";
 import styles from "./HomePage.module.scss";
 import InfoSection from "@component/SectionInfo/InfoSection";
 import AdvanceHeading from "@component/AdvanceHeading/AdvanceHeading";
+import ListProduct from "@component/ListProductHeading/ListProductHeading";
 function HomePage() {
     const {container}=styles;
     return (
@@ -13,6 +14,7 @@ function HomePage() {
                 <Banner />
                 <InfoSection />
                 <AdvanceHeading/>
+                <ListProduct/>
             </MainLayout>
         </div>
     );

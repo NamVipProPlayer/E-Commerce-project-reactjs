@@ -1,0 +1,7 @@
+@use "@styles/variables.module.scss" as var;
+
+.timerBox{
+    background-color: var.$whiteColor;
+    padding: 10px;
+    border-radius: 2px;
+}

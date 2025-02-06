@@ -1,0 +1,14 @@
+@use "@styles/mixins.module.scss" as mixin;
+
+.container {
+    width: 1250px;
+    height: auto;
+    @include mixin.flex_box_icon(space-between, center, 10px);
+}
+.wrapContent {
+    display: flex;
+    justify-content: center;
+}
+.containerItems {
+    @include mixin.flex_box_icon(center, center, 10px);
+}

@@ -1,0 +1,11 @@
+@use "@styles/mixins.module.scss" as mixin;
+.container {
+    background-image: url(../../assets/images/banner.jpg);
+    height: 540px;
+    width: calc(400% / 2.2);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.containerTimer {
+    @include mixin.flex_box_icon(center, center, 20px);
+}
