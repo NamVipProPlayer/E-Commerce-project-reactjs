@@ -1,0 +1,72 @@
+@use "@styles/variables.module.scss" as var;
+@use "@styles/mixins.module.scss" as mixin;
+
+.imgItems {
+    width: 310px;
+    height: 453px;
+    gap: 5px;
+    position: relative;
+
+    &:hover {
+        .showHover {
+            opacity: 1;
+            transition: opacity 500ms ease;
+        }
+
+        .showSidebarItemHover {
+            opacity: 1;
+            transform: translateX(0);
+            transition: transform 500ms ease, opacity 500ms ease;
+        }
+    }
+}
+
+.imgItems img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.showHover {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.showSidebarItemHover {
+    opacity: 0;
+    background-color: var.$whiteColor;
+    position: absolute;
+    right: 25px;
+    bottom: 20px;
+    transform: translateX(100%);
+    transition: transform 500ms ease, opacity 500ms ease;
+}
+.containerIcon {
+    width: 40px;
+    height: 40px;
+    @include mixin.flex_box_icon(center, center, 0px);
+
+    img {
+        width: 20px;
+        height: 20px;
+    }
+
+    &:hover {
+        background-color: var.$lightGrey;
+        transition: background-color 200ms;
+    }
+}
+.itemName {
+    font-size: 0.8em;
+    color: var.$secondBlack;
+    font-weight: 500;
+    margin: 10px 0px 5px 0px;
+}
+.itemPrice {
+    font-size: 0.7em;
+    color: var.$grey;
+}

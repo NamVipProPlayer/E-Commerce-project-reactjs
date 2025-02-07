@@ -28,7 +28,7 @@
     margin: $margin;
     background-color: $bgcolor;
     color: $fColor;
-    border: 1px solid #e1e1e1;
+    border: none;
 }
 @mixin btn_add(
     $bgcolor: #000000,

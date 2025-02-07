@@ -9,10 +9,10 @@ function CountDownTimer({ targetDate }) {
 
         if (diff > 0) {
             timeLeft = {
-                days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-                hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-                minutes: Math.floor((diff / 1000 / 60) % 60),
-                seconds: Math.floor((diff / 1000) % 60)
+                Days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+                Hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+                Mins: Math.floor((diff / 1000 / 60) % 60),
+                Secs: Math.floor((diff / 1000) % 60)
             };
         }
         return timeLeft;
@@ -32,7 +32,7 @@ function CountDownTimer({ targetDate }) {
 
     const timerComponent = Object.keys(timeLeft).map((interval) => (
         <span key={interval} className={timerBox}>
-            {formatNumber(timeLeft[interval])} {interval}{" "}
+            {formatNumber(timeLeft[interval])} <span> {interval}</span>{" "}
         </span>
     ));
 

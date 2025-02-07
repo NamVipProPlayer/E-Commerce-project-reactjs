@@ -1,4 +1,5 @@
 
+import ProductItems from "@component/ProductItems/ProductItems";
 import styles from "./stylesListProduct.module.scss";
 import CountDownBanner from "@component/CountDownBanner/CountDountBanner";
 
@@ -13,8 +14,9 @@ function ListProduct() {
                     <CountDownBanner />
                 </div>
                 <div className={containerItems}>
-                    <div>1</div>
-                    <div>2</div>
+                    <ProductItems/>
+                    <ProductItems/>
+                    
                 </div>
             </div>
         </div>

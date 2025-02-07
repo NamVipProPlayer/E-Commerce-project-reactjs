@@ -1,11 +1,22 @@
 @use "@styles/mixins.module.scss" as mixin;
+@use "@styles/variables.module.scss" as var;
 .container {
-    background-image: url(../../assets/images/banner.jpg);
-    height: 540px;
-    width: calc(400% / 2.2);
+    background-image: url(../../assets/images/Classic.jpg);
+    height: 520px;
+    width: 620px;
     background-repeat: no-repeat;
     background-size: cover;
 }
 .containerTimer {
     @include mixin.flex_box_icon(center, center, 20px);
+}
+.title {
+    color: var.$grey;
+    font-size: 2em;
+    font-weight: 600;
+    margin: 35px 10px;
+    text-align: center;
+}
+.btn {
+    @include mixin.flex_box_icon(center, center, 5px);
 }
