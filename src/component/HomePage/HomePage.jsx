@@ -5,16 +5,22 @@ import styles from "./HomePage.module.scss";
 import InfoSection from "@component/SectionInfo/InfoSection";
 import AdvanceHeading from "@component/AdvanceHeading/AdvanceHeading";
 import ListProduct from "@component/ListProductHeading/ListProductHeading";
+import { getProduct } from "@/apis/productService.js";
+import { useEffect } from "react";
 function HomePage() {
-    const {container}=styles;
+    const { container } = styles;
+    useEffect(() => {
+        getProduct;
+    }, []);
+
     return (
         <div className={container}>
             <MainLayout>
                 <Header />
                 <Banner />
                 <InfoSection />
-                <AdvanceHeading/>
-                <ListProduct/>
+                <AdvanceHeading />
+                <ListProduct />
             </MainLayout>
         </div>
     );
