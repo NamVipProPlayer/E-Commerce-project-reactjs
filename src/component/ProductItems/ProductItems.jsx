@@ -20,7 +20,8 @@ function ProductItems({ src, prevSrc, name, price }) {
             <div className={imgItems}>
                 <img src={bestsell} alt="Best Seller" />
                 <img
-                    src={bestsellZoom}
+                    src="https://raw.githubusercontent.com/NamVipProPlayer/backendIMG/main/images/bestSellZoom.jpg"
+
                     alt="Best Seller Zoom"
                     className={showHover}
                 />
