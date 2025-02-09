@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-    baseURL: "https://e-commerce-project-reactjs.vercel.app/",
-    timeout: 10000,
+    baseURL: "https://backendimg-rmha.onrender.com",
+    timeout: 5000,
     headers: {
         "Content-Type": "application/json"
     }

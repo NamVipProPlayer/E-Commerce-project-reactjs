@@ -1,18 +1,12 @@
 import ProductItems from "@component/ProductItems/ProductItems";
-import styles from "./stylesListProduct.module.scss";
-import CountDownBanner from "@component/CountDownBanner/CountDountBanner";
-
-function ListProduct({ data }) {
-    const { container, wrapContent, containerItems } = styles;
-
-    console.log(data);
+import styles from "./styles.module.scss";
+import MainLayout from "@component/Layout/Layout.jsx";
+function PopularProduct({ data }) {
+    const { container, wrapContent } = styles;
     return (
-        <div className={wrapContent}>
-            <div className={container}>
-                <div>
-                    <CountDownBanner />
-                </div>
-                <div className={containerItems}>
+        <>
+            <div className={wrapContent}>
+                <div className={container}>
                     {data.map((item) => {
                         return (
                             <ProductItems
@@ -26,8 +20,8 @@ function ListProduct({ data }) {
                     })}
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
-export default ListProduct;
+export default PopularProduct;

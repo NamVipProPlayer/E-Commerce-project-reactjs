@@ -1,0 +1,15 @@
+@use "@styles/mixins.module.scss" as mixin;
+
+.container {
+  
+   
+    margin-top: 10px;
+    flex-wrap: wrap;
+
+    @include mixin.flex_box_icon(center, center, 10px);
+}
+.wrapContent{
+    @include mixin.flex_box_icon(center,center,0px);
+
+ 
+}

@@ -6,11 +6,16 @@ import InfoSection from "@component/SectionInfo/InfoSection";
 import AdvanceHeading from "@component/AdvanceHeading/AdvanceHeading";
 import ListProduct from "@component/ListProductHeading/ListProductHeading";
 import { getProduct } from "@/apis/productService.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import PopularProduct from "@component/PopularProduct/PopularProduct";
 function HomePage() {
     const { container } = styles;
+    const [listProduct, setListProduct] = useState([]);
+
     useEffect(() => {
-        getProduct;
+        getProduct().then((res) => {
+            setListProduct(res);
+        });
     }, []);
 
     return (
@@ -20,7 +25,10 @@ function HomePage() {
                 <Banner />
                 <InfoSection />
                 <AdvanceHeading />
-                <ListProduct />
+                <ListProduct data={listProduct.slice(0, 2)} />
+                <PopularProduct
+                    data={listProduct.slice(2, 10)}
+                />
             </MainLayout>
         </div>
     );

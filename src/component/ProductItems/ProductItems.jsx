@@ -18,10 +18,9 @@ function ProductItems({ src, prevSrc, name, price }) {
     return (
         <div>
             <div className={imgItems}>
-                <img src={bestsell} alt="Best Seller" />
+                <img src={src} alt="Best Seller" />
                 <img
-                    src="https://raw.githubusercontent.com/NamVipProPlayer/backendIMG/main/images/bestSellZoom.jpg"
-
+                    src={prevSrc}
                     alt="Best Seller Zoom"
                     className={showHover}
                 />
@@ -38,8 +37,8 @@ function ProductItems({ src, prevSrc, name, price }) {
                     </div>
                 </div>
             </div>
-            <div className={itemName}>Nike Free Metcon 6</div>
-            <div className={itemPrice}>66$</div>
+            <div className={itemName}>{name}</div>
+            <div className={itemPrice}>{price}$</div>
         </div>
     );
 }

@@ -3,7 +3,7 @@
 .container {
     width: 1250px;
     height: auto;
-    @include mixin.flex_box_icon(space-between, center, 10px);
+    @include mixin.flex_box_icon(space-between, flex-start, 10px);
 }
 .wrapContent {
     display: flex;
