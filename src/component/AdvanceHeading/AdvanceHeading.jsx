@@ -1,5 +1,5 @@
 import MainLayout from "@component/Layout/Layout";
-import styles from "./stylesAdvanceHeading.module.scss";
+import styles from "../Banner/stylesAdvanceHeading.module.scss";
 function AdvanceHeading() {
     const { container, headline, containerMidBox, des, title } = styles;
     return (

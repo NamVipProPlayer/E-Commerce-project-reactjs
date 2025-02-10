@@ -1,6 +1,6 @@
-import AutoSlider from "@component/Banner/AutoSlide/AutoSlider";
+
 import styles from "./stylesBanner.module.scss";
-import { dataSlider } from "@Header/constant.js";
+
 import Button from "@component/Buton/Button";
 
 function Banner() {

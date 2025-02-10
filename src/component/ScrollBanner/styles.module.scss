@@ -1,0 +1,11 @@
+@use "@styles/mixins.module.scss" as mixin;
+
+.container{
+    @include mixin.flex_box_icon(space-between, center, 0px);
+
+
+}
+
+.imgBox{
+    
+}

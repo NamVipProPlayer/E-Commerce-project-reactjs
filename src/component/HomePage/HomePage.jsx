@@ -8,6 +8,7 @@ import ListProduct from "@component/ListProductHeading/ListProductHeading";
 import { getProduct } from "@/apis/productService.js";
 import { useEffect, useState } from "react";
 import PopularProduct from "@component/PopularProduct/PopularProduct";
+import ScrollBanner from "@component/ScrollBanner/ScrollBanner";
 function HomePage() {
     const { container } = styles;
     const [listProduct, setListProduct] = useState([]);
@@ -29,6 +30,7 @@ function HomePage() {
                 <PopularProduct
                     data={listProduct.slice(2, 10)}
                 />
+                <ScrollBanner/>
             </MainLayout>
         </div>
     );
