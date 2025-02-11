@@ -3,20 +3,20 @@ import styles from "./stylesListProduct.module.scss";
 import CountDownBanner from "@component/CountDownBanner/CountDountBanner";
 
 function ListProduct({ data }) {
-    const { container, wrapContent, containerItems } = styles;
+    const { container, wrapContent, containerItems, countDown } = styles;
 
-    console.log(data);
+   
     return (
         <div className={wrapContent}>
             <div className={container}>
-                <div>
+                <div className={countDown}>
                     <CountDownBanner />
                 </div>
                 <div className={containerItems}>
-                    {data.map((item) => {
+                    {data.map((item,index) => {
                         return (
                             <ProductItems
-                                key={item.id}
+                                key={item.id || index}
                                 src={item.src}
                                 prevSrc={item.prevSrc}
                                 name={item.name}

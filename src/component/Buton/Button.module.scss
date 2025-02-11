@@ -3,13 +3,33 @@
 
 .btn_heart {
     @include style.btn_common(20vh, 30px, 10px, 1em, 3px);
+    
+    @media screen and (max-width: 768px) {
+        height: 15vh;
+        padding: 8px;
+    }
+
+    @media screen and (max-width: 576px) {
+        height: 10vh;
+        padding: 5px;
+    }
 }
+
 .btn_add {
     @include style.btn_add;
+
+    @media screen and (max-width: 768px) {
+        padding: 8px 15px;
+    }
+
+    @media screen and (max-width: 576px) {
+        padding: 5px 10px;
+    }
 }
+
 .btn_default {
     @include style.btn_common(
-        176px,
+        40%, // Adjusted to fluid width for responsiveness
         42px,
         5px,
         0.8em,
@@ -25,11 +45,32 @@
         background-color: transparent;
         font-weight: 500;
         opacity: 1;
-         border: none;
-          box-shadow: 0px 10px 15px 10px rgba(0, 0, 0, 0.2);
+        border: none;
+        box-shadow: 0px 10px 15px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    @media screen and (max-width: 768px) {
+        width: 38%;
+        font-size: 0.9em;
+        padding: 10px;
+    }
+
+    @media screen and (max-width: 576px) {
+        font-size: 0.7em;
+        padding: 8px;
     }
 }
 
 .btn_buy {
     @include style.btn_style(310px, 45px, 0.5em, black, white, 10px, 10px, 7px);
+
+    @media screen and (max-width: 768px) {
+        width: 250px;
+        padding: 10px;
+    }
+
+    @media screen and (max-width: 576px) {
+        width: 200px;
+        padding: 8px;
+    }
 }

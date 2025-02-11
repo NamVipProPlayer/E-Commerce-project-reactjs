@@ -1,12 +1,33 @@
 @use "@styles/variables.module.scss" as var;
 
-.timerBox{
+.timerBox {
     background-color: var.$whiteColor;
     padding: 10px;
     border-radius: 2px;
     margin-top: 250px;
+    text-align: center;
+    display: inline-block;
+
+    @media screen and (max-width: 768px) { /* Tablet View */
+        margin-top: 150px;
+        padding: 8px;
+    }
+
+    @media screen and (max-width: 576px) { /* Mobile View */
+        margin-top: 100px;
+        padding: 5px;
+    }
 }
 
-.timerBox span{
+.timerBox span {
     color: var.$sencondary;
+    font-size: 1.2em;
+
+    @media screen and (max-width: 768px) {
+        font-size: 1em;
+    }
+
+    @media screen and (max-width: 576px) {
+        font-size: 0.9em;
+    }
 }

@@ -1,11 +1,66 @@
 @use "@styles/mixins.module.scss" as mixin;
+@use "@styles/variables.module.scss" as var;
 
-.container{
-    @include mixin.flex_box_icon(space-between, center, 0px);
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1350px;
+  margin: 100px auto;
+  overflow: hidden;
+   
+    border-bottom: 2px solid #e1e1e1;
 
-
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 }
 
-.imgBox{
-    
+.imgContainer {
+  width: 40%;
+  height: auto;
+  img {
+    width: 100%;
+    height: 290px;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.containerContent {
+  text-align: center;
+  width: 50%;
+
+  h2 {
+    font-size: 2.5em;
+    font-weight: 600;
+    margin-bottom: 10px;
+
+    @media (max-width: 768px) {
+      font-size: 1.8em;
+    }
+  }
+
+  p {
+    color: var.$grey;
+    font-size: 1.2em;
+
+    @media (max-width: 768px) {
+      font-size: 1em;
+    }
+  }
+
+  .btn_buy {
+    @include mixin.btn_style(140px, 40px, 1em, var.$secondBlack, var.$whiteColor, 10px, 5px, 10px);
+    margin-top: 15px;
+
+    &:hover {
+      background-color: var.$primary;
+      color: var.$whiteColor;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+    }
+  }
 }

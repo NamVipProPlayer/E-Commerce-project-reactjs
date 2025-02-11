@@ -64,11 +64,12 @@
     min-width: $w;
     min-height: fit-content;
     max-height: $h;
-    font-size: 0.4em;
+    font-size: $fontSize;
     background-color: $bgColor;
     color: $color;
     margin: $margin;
     padding: $padding;
-    border: none;
+
     @include radius_common($radius);
+    // border: none;
 }

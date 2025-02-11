@@ -7,6 +7,7 @@
     gap: 5px;
     position: relative;
     margin-top: 0px;
+
     &:hover {
         .showHover {
             opacity: 1;
@@ -18,6 +19,21 @@
             transform: translateX(0);
             transition: transform 500ms ease, opacity 500ms ease;
         }
+    }
+
+    @media screen and (max-width: 1334px) {
+        width: 280px;
+        height: 400px;
+    }
+
+    @media screen and (max-width: 768px) {
+        width: 220px;
+        height: 330px;
+    }
+
+    @media screen and (max-width: 576px) {
+        width: 180px;
+        height: 270px;
     }
 }
 
@@ -44,7 +60,13 @@
     bottom: 20px;
     transform: translateX(100%);
     transition: transform 500ms ease, opacity 500ms ease;
+
+    @media screen and (max-width: 576px) {
+        right: 10px;
+        bottom: 10px;
+    }
 }
+
 .containerIcon {
     width: 40px;
     height: 40px;
@@ -59,15 +81,43 @@
         background-color: var.$lightGrey;
         transition: background-color 200ms;
     }
+
+    @media screen and (max-width: 576px) {
+        width: 30px;
+        height: 30px;
+
+        img {
+            width: 16px;
+            height: 16px;
+        }
+    }
 }
+
 .itemName {
     font-size: 0.9em;
     color: var.$secondBlack;
     font-weight: 600;
     margin: 10px 0px 5px 0px;
+
+    @media screen and (max-width: 768px) {
+        font-size: 0.8em;
+    }
+
+    @media screen and (max-width: 576px) {
+        font-size: 0.7em;
+    }
 }
+
 .itemPrice {
     font-size: 0.7em;
     font-weight: 500;
     color: var.$grey;
+
+    @media screen and (max-width: 768px) {
+        font-size: 0.65em;
+    }
+
+    @media screen and (max-width: 576px) {
+        font-size: 0.6em;
+    }
 }

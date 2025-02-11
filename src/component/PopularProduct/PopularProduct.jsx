@@ -1,16 +1,18 @@
 import ProductItems from "@component/ProductItems/ProductItems";
 import styles from "./styles.module.scss";
 import MainLayout from "@component/Layout/Layout.jsx";
+
 function PopularProduct({ data }) {
     const { container, wrapContent } = styles;
+
     return (
         <>
             <div className={wrapContent}>
                 <div className={container}>
-                    {data.map((item) => {
+                    {data.map((item, index) => {
                         return (
                             <ProductItems
-                                key={item.id}
+                                key={item.id || index} 
                                 src={item.src}
                                 prevSrc={item.prevSrc}
                                 name={item.name}
