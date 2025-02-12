@@ -8,7 +8,8 @@
             "@Footer": ["src/component/Footer/*"],
             "@Header": ["src/component/Header/*"],
             "@Icons": ["src/assets/icons/*"],
-            "@Images": ["src/assets/images/*"]
+            "@Images": ["src/assets/images/*"],
+            "@Styles": ["src/assets/styles"]
         }
     },
     "include": ["src/**/*"]
