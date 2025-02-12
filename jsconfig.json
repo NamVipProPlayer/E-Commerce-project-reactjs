@@ -9,7 +9,8 @@
             "@Header": ["src/component/Header/*"],
             "@Icons": ["src/assets/icons/*"],
             "@Images": ["src/assets/images/*"],
-            "@Styles": ["src/assets/styles"]
+            "@Styles": ["src/assets/styles"],
+            "@Hooks": ["src/hooks/*"]
         }
     },
     "include": ["src/**/*"]

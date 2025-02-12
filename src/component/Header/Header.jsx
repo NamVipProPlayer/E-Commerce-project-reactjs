@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
 import BoxIcon from "./BoxIcon/BoxIcon";
 import { dataBoxIcon, dataMenu } from "./constant";
 import Menu from "./Menu/Menu";
 import styles from "./stylesHeader.module.scss";
 import LogoWeb from "@Images/LogoWeb.png";
+import useTrackingSizeScr from "@Hooks/useTrackingSizeScr.js";
+import useHideOnScroll from "@Hooks/useHideOnScroll.js";
+
 function Header() {
     const {
         containerFlexItems,
@@ -16,35 +18,16 @@ function Header() {
         menuOpen,
         menuOpenActive,
         menuOverlay,
-        menuItems
+        menuItems,
+        menuHidden
     } = styles;
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isScreenSmall, setIsScreenSmall] = useState(
-        window.innerWidth <= 828
-    );
-
-    const handleMenuToggle = () => {
-        setIsMenuOpen((prevState) => !prevState);
-    };
-
-    // Detect screen size changes and update state
-    useEffect(() => {
-        const handleResize = () => {
-            setIsScreenSmall(window.innerWidth <= 828);
-            if (window.innerWidth > 828) {
-                setIsMenuOpen(false); // Close menu on large screens
-            }
-        };
-
-        window.addEventListener("resize", handleResize);
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
+    const { isMenuOpen, isScreenSmall, handleMenuToggle } =
+        useTrackingSizeScr();
+    const isHidden = useHideOnScroll();
 
     return (
-        <nav className={containerHeader}>
+        <nav className={`${containerHeader} ${isHidden ? menuHidden : ""}`}>
             <div className={containerMenuBox}>
                 <div className={containerFlexItems}>
                     {dataBoxIcon.slice(0, 1).map((items, index) => {

@@ -1,10 +1,10 @@
 import styles from "./styles.module.scss";
 import Srollbanner1 from "@Images/nike-just-do-it.png";
 import Scrollbanner2 from "@Images/nike-just-do-it (1).png";
-import useTranslateX from "@component/ScrollBanner/translateImageX";
+import useTranslateXImg from "@Hooks/useTranslateXImg.js";
 
 function ScrollBanner() {
-    const { translateXPosition } = useTranslateX();
+    const { translateXPosition } = useTranslateXImg();
 
 
     const { container, imgContainer, containerContent, btn_buy } = styles;
