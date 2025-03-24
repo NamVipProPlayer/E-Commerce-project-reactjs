@@ -29,8 +29,10 @@ const paymentService = {
             };
 
             // Make POST request to create payment URL
+            //https://backendimg-rmha.onrender.com
+            //http://localhost:8888
             const response = await axios.post(
-                "http://localhost:8888/order/create_payment_url",
+                "https://backendimg-rmha.onrender.com/order/create_payment_url",
                 requestData
             );
 
