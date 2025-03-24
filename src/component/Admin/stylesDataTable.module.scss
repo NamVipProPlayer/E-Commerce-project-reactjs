@@ -1,0 +1,806 @@
+.container {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  padding: 24px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Top bar with user and date info */
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.userInfo, .dateInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background-color: #f9fafb;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  
+  svg {
+    color: #3b82f6;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.controlsWrapper {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.searchWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 300px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  color: #6b7280;
+  width: 16px;
+  height: 16px;
+}
+
+.searchInput {
+  height: 40px;
+  width: 100%;
+  padding: 0 40px 0 40px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  font-size: 0.875rem;
+  color: #1f2937;
+  transition: all 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    background-color: #fff;
+  }
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+}
+
+.clearButton {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: all 0.15s ease;
+
+  &:hover {
+    color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
+  }
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
+
+  &:hover {
+    background-color: #2563eb;
+  }
+
+  .addIcon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.tableContainer {
+  overflow: auto;
+  flex-grow: 1;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  max-height: calc(100vh - 380px); /* Limit height to ensure table doesn't push content below viewport */
+}
+
+.tableWrapper {
+  min-width: 100%;
+  height: 100%;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.875rem;
+}
+
+.thead {
+  background-color: #f9fafb;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tableHeader {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tableHeaderCell {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+  user-select: none;
+  position: sticky;
+  top: 0;
+  background-color: #f9fafb;
+
+  &:first-child {
+    padding-left: 24px;
+  }
+
+  &:last-child {
+    padding-right: 24px;
+  }
+
+  &:hover {
+    background-color: #f3f4f6;
+    cursor: pointer;
+  }
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sortIcon {
+  color: #3b82f6;
+  font-weight: bold;
+}
+
+.tableRow {
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: #f9fafb;
+  }
+
+  &:last-child .tableCell {
+    border-bottom: none;
+  }
+  
+  &:nth-child(even) {
+    background-color: #f9fafb;
+  }
+}
+
+.tableCell {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #4b5563;
+
+  &:first-child {
+    padding-left: 24px;
+  }
+
+  &:last-child {
+    padding-right: 24px;
+    white-space: nowrap;
+  }
+}
+
+.updateButton, .deleteButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.updateButton {
+  background-color: #ecfdf5;
+  color: #10b981;
+  border: 1px solid #d1fae5;
+
+  &:hover {
+    background-color: #d1fae5;
+  }
+}
+
+.deleteButton {
+  background-color: #fef2f2;
+  color: #ef4444;
+  border: 1px solid #fee2e2;
+
+  &:hover {
+    background-color: #fee2e2;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.confirmOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+}
+
+.confirmDialog {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  width: 400px;
+  max-width: 90vw;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  h3 {
+    margin-top: 0;
+    color: #111827;
+    font-weight: 600;
+  }
+
+  p {
+    color: #4b5563;
+    margin-bottom: 24px;
+  }
+}
+
+.confirmButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancelButton {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e5e7eb;
+  }
+}
+
+.confirmDeleteButton {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &:hover {
+    background-color: #dc2626;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.spinnerIcon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.errorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 0;
+  background-color: #fef2f2;
+  border-radius: 8px;
+  color: #b91c1c;
+  text-align: center;
+
+  h3 {
+    margin: 16px 0 8px;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0 0 24px;
+    max-width: 400px;
+    color: #ef4444;
+  }
+}
+
+.retryButton {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #dc2626;
+  }
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 0;
+  text-align: center;
+  border-radius: 8px;
+  border: 2px dashed #e5e7eb;
+  background-color: #f9fafb;
+  margin: 20px 0;
+
+  .emptyStateIcon {
+    color: #9ca3af;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    margin: 0 0 8px;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  p {
+    margin: 0 0 24px;
+    max-width: 400px;
+    color: #6b7280;
+  }
+}
+
+.addEmptyButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #2563eb;
+  }
+}
+
+.clearSearchButton {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e5e7eb;
+  }
+}
+
+// Skeleton loading styles
+.skeletonHeader, .skeletonRow {
+  display: flex;
+  width: 100%;
+}
+
+.skeletonHeaderCell, .skeletonCell {
+  height: 24px;
+  flex: 1;
+  margin: 12px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeletonHeaderCell {
+  height: 20px;
+  opacity: 0.7;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Pagination styles
+.paginationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.paginationInfo {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.paginationButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background-color: transparent;
+  color: #4b5563;
+  border: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #f3f4f6;
+    border-color: #d1d5db;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.activePage {
+    background-color: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+    font-weight: 600;
+
+    &:hover {
+      background-color: #2563eb;
+    }
+  }
+}
+
+// Custom scrollbar for better UI
+.tableContainer::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.tableContainer::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+// Shadow for sticky header scroll indication
+.thead::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 4px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.tableContainer.scrolled .thead::after {
+  opacity: 1;
+}
+
+// Order status styles
+.orderStatus {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  
+  &.pending {
+    background-color: #fffbeb;
+    color: #d97706;
+  }
+  
+  &.processing {
+    background-color: #ecfdf5;
+    color: #059669;
+  }
+  
+  &.shipped {
+    background-color: #eff6ff;
+    color: #3b82f6;
+  }
+  
+  &.delivered {
+    background-color: #f3f4f6;
+    color: #1f2937;
+  }
+  
+  &.cancelled {
+    background-color: #fef2f2;
+    color: #ef4444;
+  }
+}
+
+// Price formatting
+.price {
+  font-weight: 500;
+  
+  &:before {
+    content: '$';
+    opacity: 0.7;
+    margin-right: 1px;
+  }
+}
+
+// Date formatting
+.date {
+  white-space: nowrap;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .topBar {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controlsWrapper {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .searchWrapper {
+    width: 100%;
+  }
+
+  .addButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tableContainer {
+    overflow-x: auto;
+  }
+
+  .paginationContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .paginationControls {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// User and date info at the top
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+}
+
+.userInfo, .dateInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background-color: #f9fafb;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  
+  svg {
+    color: #3b82f6;
+  }
+  
+  span {
+    color: #4b5563;
+    font-weight: 500;
+  }
+}
+
+// Table improvements
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tableRow {
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateX(2px);
+    box-shadow: -2px 0 0 #3b82f6;
+  }
+}
+
+// Add some spacing in the empty state
+.emptyState {
+  min-height: 300px;
+}
+
+// Focus states for accessibility
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+// Fade in animation for the table
+.tableContainer {
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Order item highlighting - emphasize important information
+.orderNumber {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.orderItems {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.orderTotal {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+// Badge for new orders (less than 24 hours old)
+.newBadge {
+  background-color: #ef4444;
+  color: white;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 9999px;
+  margin-left: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

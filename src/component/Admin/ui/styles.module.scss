@@ -1,0 +1,183 @@
+@use "@styles/variables.module.scss" as var;
+.avatar {
+  position: relative;
+  display: flex;
+  height: 40px;
+  width: 40px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.avatarImage {
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  width: 100%;
+}
+
+.avatarFallback {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var.$lightGrey;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.default {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  &:hover {
+    background-color: rgba(var(--color-primary), 0.9);
+  }
+}
+
+.destructive {
+  background-color: var(--color-destructive);
+  color: var(--color-destructive-foreground);
+  &:hover {
+    background-color: rgba(var(--color-destructive), 0.9);
+  }
+}
+
+.outline {
+  border: 1px solid var(--color-input);
+  background-color: var(--color-background);
+  &:hover {
+    background-color: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+}
+
+.ghost {
+  &:hover {
+    background-color: var.$accentColor;
+    color: var.$accentForeground;
+  }
+}
+
+.default-size {
+  height: 2.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.sm {
+  height: 2.25rem;
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+}
+
+.lg {
+  height: 2.75rem;
+  border-radius: 0.375rem;
+  padding: 1rem 2rem;
+}
+
+.icon {
+  height: 2.25rem;
+  width: 2.25rem;
+}
+.dropdownMenuContent {
+  z-index: 50;
+  min-width: 8rem;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-popover);
+  padding: 0.25rem;
+  color: var(--color-popover-foreground);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdownMenuItem {
+  position: relative;
+  display: flex;
+  cursor: default;
+  select: none;
+  align-items: center;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
+  transition: background-color 0.2s ease-in-out;
+  outline: none;
+
+  &:focus {
+    background-color: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+
+  &[data-disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+.inset {
+  padding-left: 2rem;
+}
+.tabsList {
+  display: inline-flex;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  background-color: var(--color-muted);
+  padding: 0.25rem;
+  color: var(--color-muted-foreground);
+}
+
+.tabsTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+    ring: 2px solid var(--color-ring);
+    ring-offset: 2px;
+  }
+
+  &[data-state="active"] {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+.tabsContent {
+  margin-top: 0.5rem;
+  outline: none;
+
+  &:focus-visible {
+    ring: 2px solid var(--color-ring);
+    ring-offset: 2px;
+  }
+}
+
+

@@ -1,0 +1,405 @@
+.transactionContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+}
+
+.transactionCard {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+  position: relative;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.successIcon {
+  margin-bottom: 1rem;
+  animation: pulse 2s infinite;
+}
+
+.failedIcon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: #e74c3c;
+}
+
+.title {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.titleFailed {
+  font-size: 1.8rem;
+  color: #e74c3c;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+.receiptContainer {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  border: 1px dashed #ddd;
+  position: relative;
+}
+
+.receiptTitle {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  font-weight: 600;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1rem;
+}
+
+.receiptGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+.leftColumn,
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.receiptRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.label {
+  font-weight: 500;
+  color: #7f8c8d;
+  min-width: 120px;
+}
+
+.value {
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: right;
+  flex-grow: 1;
+}
+
+.valueHighlighted {
+  font-weight: 700;
+  color: #2980b9;
+  text-align: right;
+  flex-grow: 1;
+  font-size: 1.1rem;
+}
+
+.statusSuccess {
+  color: #27ae60;
+}
+
+.statusFailed {
+  color: #e74c3c;
+}
+
+.orderInfoSection {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.orderInfo {
+  font-style: italic;
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.successMessage,
+.failureMessage {
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.successMessage {
+  border-left: 4px solid #27ae60;
+  color: #2c3e50;
+}
+
+.failureMessage {
+  border-left: 4px solid #e74c3c;
+  color: #2c3e50;
+}
+
+.infoIcon {
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.primaryButton {
+  background-color: #3498db;
+  color: white;
+  
+  &:hover {
+    background-color: #2980b9;
+  }
+}
+
+.secondaryButton {
+  background-color: #2ecc71;
+  color: white;
+  
+  &:hover {
+    background-color: #27ae60;
+  }
+}
+
+.outlineButton {
+  background-color: transparent;
+  color: #3498db;
+  border: 1px solid #3498db;
+  
+  &:hover {
+    background-color: #f0f8ff;
+  }
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-left-color: #3498db;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.errorIcon {
+  font-size: 3rem;
+  color: #e74c3c;
+  margin-bottom: 1rem;
+}
+
+.errorTitle {
+  font-size: 1.5rem;
+  color: #e74c3c;
+  margin-bottom: 1rem;
+}
+
+.errorMessage {
+  color: #7f8c8d;
+  margin-bottom: 2rem;
+  max-width: 500px;
+}
+
+.returnButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+  }
+}
+
+/* Print styles */
+@media print {
+  .transactionContainer {
+    padding: 0;
+    background-color: white;
+  }
+  
+  .transactionCard {
+    box-shadow: none;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .actions {
+    display: none;
+  }
+  
+  .receiptContainer {
+    border: 1px solid #000;
+    margin-bottom: 0;
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .transactionCard {
+    padding: 1.5rem;
+  }
+  
+  .actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .button {
+    width: 100%;
+  }
+  
+  .title, .titleFailed {
+    font-size: 1.5rem;
+  }
+  
+  .receiptContainer {
+    padding: 1rem;
+  }
+}
+
+/* Watermark for receipt */
+.receiptContainer::before {
+  content: "VNPAY";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  font-size: 5rem;
+  color: rgba(52, 152, 219, 0.03);
+  z-index: 0;
+  font-weight: 900;
+  pointer-events: none;
+}
+
+/* Custom styling for successful VNPAY transaction */
+.vnpayBadge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #2980b9;
+  color: white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.7rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.timestamp {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.75rem;
+  color: #95a5a6;
+}
+
+.username {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  font-size: 0.75rem;
+  color: #95a5a6;
+}

@@ -1,16 +1,33 @@
-//file nay dung de luu cac style nhu color, width, height,
+// file nay dung de luu cac style nhu color, width, height,
 // ma co the dung chung trong project
+
+// Existing colors
 $primary: #000000;
 $sencondary: #888;
 $grey: #555;
-$secondBlack:#222;
+$secondBlack: #222;
+$muteColor: #b4b4b4;
 $whiteColor: #fff;
 $brownYellow: rgb(181, 180, 152);
 $skinColor: #fff4e4;
 $lightGrey: #ededed;
+$lineBorder: #e1e1e1;
 $footerColor: #313131;
 $bgPrimary: #fed392;
 $Terracotta: #e8c0a8;
 $PastelCoral: #ffc9b5;
 $hardOrange: #d74800;
 $Lavender: #e9d6f0;
+
+// Tailwind color tokens
+$primaryColor: #1E40AF; // Deep blue (main brand color)
+$primaryForeground: #FFFFFF; // White text on primary
+$destructiveColor: #DC2626; // Red for destructive actions
+$destructiveForeground: #FFFFFF; // White text on destructive
+$accentColor: #FACC15; // Yellow accent color
+$accentForeground: #1F2937; // Dark gray text on accent
+$secondaryColor: #6B7280; // Neutral gray for secondary
+$secondaryForeground: #FFFFFF; // White text on secondary
+$ringColor: #2563EB; // Blue focus ring
+$backgroundColor: #F3F4F6; // Light gray background
+$inputBorderColor: #D1D5DB; // Gray for input borders

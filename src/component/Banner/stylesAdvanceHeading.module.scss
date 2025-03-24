@@ -4,6 +4,11 @@
 .container {
     @include mixin.flex_box_icon(center, center, 7px);
     margin: 65px 0px 10px;
+    position: relative;
+    top: -100px;
+   
+    
+    
 }
 
 .headline {

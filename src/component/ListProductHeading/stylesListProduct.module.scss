@@ -2,10 +2,10 @@
 
 .container {
     width: 100%;
-    max-width: 1270px;
+    max-width: 1280px;
     height: auto;
     @include mixin.flex_box_icon(space-between, flex-start, 0px);
-    padding: clamp(10px, 2vw, 20px); // Adaptive padding
+    padding: clamp(0px, 2vw, 10px); // Adaptive padding
 
     @media screen and (max-width: 1334px) { // Tablets
         flex-direction: column;
@@ -27,6 +27,8 @@
 .wrapContent {
     display: flex;
     justify-content: center;
+    // align-items: center;
+    
     flex-wrap: wrap; // Ensures content wraps on smaller screens
 
     @media screen and (max-width: 1024px) {

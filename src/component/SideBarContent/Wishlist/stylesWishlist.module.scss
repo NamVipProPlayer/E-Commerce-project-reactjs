@@ -1,0 +1,103 @@
+@use "@styles/mixins.module.scss" as mixins;
+@use "@styles/variables.module.scss" as var;
+
+.container {
+    @include mixins.flex_box_icon(space-between, center, 0px);
+    height: 90vh;
+    flex-direction: column;
+    margin-top: 2em;
+
+    .containerBox {
+        @include mixins.flex_box_icon(center, center, 0px);
+        flex-direction: column;
+        width: 90%;
+    }
+}
+
+.titleContainer {
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+// Container for the fade effects
+.fadeContainer {
+    position: relative;
+    width: 100%;
+    max-height: calc(90vh - 100px);
+    
+    // Top fade mask
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 20px;
+        background: linear-gradient(to bottom, 
+            rgba(255, 255, 255, 1) 0%, 
+            rgba(255, 255, 255, 0) 100%);
+        z-index: 2;
+        pointer-events: none; // Allow clicking through the fade
+    }
+    
+    // Bottom fade mask
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 20px;
+        background: linear-gradient(to top, 
+            rgba(255, 255, 255, 1) 0%, 
+            rgba(255, 255, 255, 0) 100%);
+        z-index: 2;
+        pointer-events: none; // Allow clicking through the fade
+    }
+}
+
+// Actual scrollable container
+.itemsContainer {
+    width: 100%;
+    max-height: calc(90vh - 100px);
+    overflow-y: scroll; 
+    overflow-x: hidden;
+    padding: 0.5rem;
+    padding-top: 0.75rem; // Add a bit more padding at top to account for fade
+    padding-bottom: 0.75rem; // Add a bit more padding at bottom to account for fade
+    
+    /* Hide scrollbar */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    
+    // Add spacing between items
+    & > *:not(:last-child) {
+        margin-bottom: 0.75rem;
+    }
+}
+
+.btnAdd {
+    @include mixins.btn_style(
+        20rem,
+        0.6rem,
+        1em,
+        var.$whiteColor,
+        var.$primary,
+        0px,
+        10px,
+        5px
+    );
+
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+
+    &:hover{
+        background-color: var.$footerColor;
+        color: var.$whiteColor;
+    }
+}

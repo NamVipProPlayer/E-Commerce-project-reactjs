@@ -1,0 +1,40 @@
+
+@use "@styles/variables.module.scss" as var;
+.customCheckbox {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var.$primary;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var.$primary;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &[data-state="checked"] {
+    background-color: var.$primary;
+    color: var.$whiteColor;
+  }
+}
+
+.customCheckboxIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkIcon {
+  width: 13px;
+  height: 13px;
+  color: inherit;
+}

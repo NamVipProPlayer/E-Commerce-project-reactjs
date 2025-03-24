@@ -3,7 +3,7 @@ import styles from "../Banner/stylesAdvanceHeading.module.scss";
 function AdvanceHeading() {
     const { container, headline, containerMidBox, des, title } = styles;
     return (
-        <MainLayout>
+        <section>
             <div className={container}>
                 <div className={headline}></div>
                 <div className={containerMidBox}>
@@ -12,7 +12,7 @@ function AdvanceHeading() {
                 </div>
                 <div className={headline}></div>
             </div>
-        </MainLayout>
+        </section>
     );
 }
 

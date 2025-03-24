@@ -36,7 +36,7 @@ function InfoSection() {
 
     return (
         <div className={wrapLayout}>
-            <MainLayout className={containerSection}>
+            <section className={containerSection}>
                 <div className={container}>
                     {DataSecInFo.map((items, index) => {
                         // Show all cards on larger screens, only one card on mobile
@@ -56,7 +56,7 @@ function InfoSection() {
                         ) : null;
                     })}
                 </div>
-            </MainLayout>
+            </section>
         </div>
     );
 }

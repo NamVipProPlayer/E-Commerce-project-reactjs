@@ -2,6 +2,7 @@ import styles from "../stylesHeader.module.scss";
 import heartIcon from "@Icons/svgs/heart.svg";
 import bagicon from "@Icons/svgs/handbag.svg";
 import searchIcon from "@Icons/svgs/search.svg";
+import { CiHeart } from "react-icons/ci";
 function BoxIcon({ type, href }) {
     const { boxIcon } = styles;
     const handleRender = (type) => {

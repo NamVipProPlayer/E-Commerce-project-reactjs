@@ -1,0 +1,510 @@
+.paymentContainer {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 0.75rem;
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  background-color: #fff5f5;
+  color: #d10000;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.errorIcon {
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.successMessage {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  color: #000000;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.successIcon {
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.promoSection {
+  margin-bottom: 1.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.9rem;
+  border: 1px solid #d4d4d4;
+  border-radius: 6px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  
+  &:focus {
+    border-color: #000000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+  }
+  
+  &:disabled {
+    background-color: #f7f7f7;
+    cursor: not-allowed;
+  }
+}
+
+.paymentSummary {
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: #333333;
+}
+
+.discountRow {
+  display: flex;
+  justify-content: space-between;
+  color: #000000;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid #e5e5e5;
+  color: #000000;
+}
+
+.freeShipping {
+  color: #000000;
+  font-weight: 500;
+}
+
+.freeShippingNote {
+  font-size: 0.8rem;
+  color: #444444;
+  margin-bottom: 0.5rem;
+  text-align: right;
+}
+
+.methodSection {
+  margin-bottom: 1.5rem;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  padding: 0.85rem;
+  border: 1px solid #d4d4d4;
+  border-radius: 8px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    border-color: #000000;
+    background-color: #f7f7f7;
+  }
+  
+  &.selected {
+    border-color: #000000;
+    background-color: #f2f2f2;
+    box-shadow: 0 0 0 1px #000000;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.icon {
+  margin-right: 0.5rem;
+  color: #333333;
+  flex-shrink: 0;
+}
+
+.logo {
+  height: 24px;
+  width: auto;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.text {
+  font-size: 0.9rem;
+}
+
+.detailsSection {
+  margin-bottom: 1.5rem;
+}
+
+.creditCardForm {
+  padding: 1rem;
+  border: 1px solid #d4d4d4;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.field {
+  margin-bottom: 1rem;
+  
+  &.fieldError {
+    .input {
+      border-color: #d10000;
+    }
+  }
+}
+
+.errorText {
+  color: #d10000;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  color: #333333;
+}
+
+.row {
+  display: flex;
+  gap: 0.75rem;
+  
+  @media (max-width: 480px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.halfField {
+  flex: 1;
+}
+
+.message {
+  padding: 1rem;
+  border: 1px solid #d4d4d4;
+  border-radius: 8px;
+  background-color: #fafafa;
+  
+  p {
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    color: #333333;
+  }
+  
+  small {
+    color: #666666;
+    line-height: 1.5;
+    display: block;
+  }
+}
+
+.secureInfo {
+  display: flex;
+  align-items: flex-start;
+  font-size: 0.8rem;
+  color: #444444;
+  margin-top: 0.5rem;
+  
+  .securityIcon {
+    margin-right: 0.5rem;
+    color: #000000;
+    flex-shrink: 0;
+    transform: translateY(2px);
+  }
+}
+
+.noticeInfo {
+  background-color: #f7f7f7;
+  padding: 0.75rem;
+  border-left: 3px solid #000000;
+  margin-top: 0.75rem;
+  border-radius: 4px;
+  
+  small {
+    color: #333333;
+  }
+}
+
+.securityNote {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #666666;
+  margin-top: 0.5rem;
+  
+  .securityIcon {
+    margin-right: 0.5rem;
+    color: #000000;
+  }
+}
+
+.completePurchaseButton {
+  width: 100%;
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  
+  &:hover:not(:disabled) {
+    background-color: #333333;
+  }
+  
+  &:disabled {
+    background-color: #777777;
+    cursor: not-allowed;
+  }
+  
+  &.processing {
+    background-color: #333333;
+    cursor: not-allowed;
+  }
+}
+
+.loadingState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+  margin-right: 0.5rem;
+}
+
+.termsNote {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #666666;
+  margin-top: 0.5rem;
+}
+
+.termsLink {
+  color: #000000;
+  text-decoration: none;
+  transition: color 0.2s;
+  
+  &:hover {
+    color: #444444;
+    text-decoration: underline;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .paymentContainer {
+    padding: 1.25rem;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+  }
+  
+  .options {
+    grid-template-columns: 1fr;
+  }
+  
+  .completePurchaseButton {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .paymentContainer {
+    background-color: #121212;
+    border-color: #333333;
+  }
+  
+  .title, .sectionTitle {
+    color: #ffffff;
+  }
+  
+  .input {
+    background-color: #1e1e1e;
+    border-color: #3d3d3d;
+    color: #ffffff;
+    
+    &:focus {
+      border-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+    }
+    
+    &:disabled {
+      background-color: #1a1a1a;
+      color: #999999;
+    }
+  }
+  
+  .paymentSummary {
+    background-color: #1e1e1e;
+  }
+  
+  .summaryRow {
+    color: #e0e0e0;
+  }
+  
+  .totalRow {
+    border-top-color: #333333;
+    color: #ffffff;
+  }
+  
+  .option {
+    background-color: #1e1e1e;
+    border-color: #3d3d3d;
+    
+    &:hover:not(:disabled) {
+      border-color: #ffffff;
+      background-color: #252525;
+    }
+    
+    &.selected {
+      border-color: #ffffff;
+      background-color: #252525;
+      box-shadow: 0 0 0 1px #ffffff;
+    }
+  }
+  
+  .text, .icon {
+    color: #e0e0e0;
+  }
+  
+  .creditCardForm, .message {
+    background-color: #1e1e1e;
+    border-color: #3d3d3d;
+  }
+  
+  .label {
+    color: #e0e0e0;
+  }
+  
+  .message p {
+    color: #e0e0e0;
+  }
+  
+  .message small {
+    color: #b0b0b0;
+  }
+  
+  .noticeInfo {
+    background-color: #252525;
+    border-left-color: #666666;
+  }
+  
+  .noticeInfo small {
+    color: #b0b0b0;
+  }
+  
+  .termsNote {
+    color: #b0b0b0;
+  }
+  
+  .termsLink {
+    color: #ffffff;
+    
+    &:hover {
+      color: #cccccc;
+    }
+  }
+  
+  .errorMessage {
+    background-color: rgba(209, 0, 0, 0.1);
+  }
+  
+  .successMessage {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+  
+  .freeShipping {
+    color: #ffffff;
+  }
+  
+  .freeShippingNote {
+    color: #b0b0b0;
+  }
+  
+  .securityNote .securityIcon,
+  .secureInfo .securityIcon {
+    color: #ffffff;
+  }
+  
+  .completePurchaseButton {
+    &:disabled {
+      background-color: #333333;
+    }
+    
+    &.processing {
+      background-color: #444444;
+    }
+  }
+}

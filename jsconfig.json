@@ -10,7 +10,9 @@
             "@Icons": ["src/assets/icons/*"],
             "@Images": ["src/assets/images/*"],
             "@Styles": ["src/assets/styles"],
-            "@Hooks": ["src/hooks/*"]
+            "@Hooks": ["src/hooks/*"],
+            "@Contexts": ["src/contexts/*"],
+            "@apis": ["src/apis/*"],
         }
     },
     "include": ["src/**/*"]

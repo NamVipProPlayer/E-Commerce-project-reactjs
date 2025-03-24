@@ -1,0 +1,54 @@
+@use '@styles/variables.module.scss' as var;
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease-in-out;
+  outline: none;
+  border: 1px solid transparent;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var.$ringColor;
+  }
+}
+
+// Variant styles
+.default {
+  background-color: var.$primary;
+  color: var.$primaryForeground;
+
+  &:hover {
+    background-color: var.$primary;
+    opacity: 80%;
+  }
+}
+
+.secondary {
+  background-color: var.$secondaryColor;
+  color: var.$secondaryForeground;
+
+  &:hover {
+    background-color: var.$secondaryColor;
+    opacity: 80%;
+  }
+}
+
+.destructive {
+  background-color: var.$destructiveColor;
+  color: var.$destructiveForeground;
+
+  &:hover {
+    background-color: var.$destructiveColor;
+    opacity: 80%;
+  }
+}
+
+.outline {
+  color: var.$lineBorder;
+  border-color: var.$lineBorder;
+}

@@ -1,0 +1,144 @@
+.orderSummary {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  
+  &Loading {
+    text-align: center;
+    padding: 2rem 0;
+    color: #6b7280;
+  }
+  
+  &Title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  &PriceBreakdown {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  &PriceRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #4b5563;
+  }
+  
+  &SubtotalLabel {
+    display: flex;
+    align-items: center;
+  }
+  
+  &Tooltip {
+    margin-left: 0.5rem;
+    background-color: #e5e7eb;
+    border-radius: 50%;
+    width: 1.25rem;
+    height: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+  
+  &Price {
+    font-weight: 500;
+  }
+  
+  &FreeShipping {
+    color: #10b981;
+    font-weight: 500;
+  }
+  
+  &ShippingMessage {
+    background-color: #ecfdf5;
+    color: #047857;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+  }
+  
+  &Total {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  &TotalRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  &TotalLabel {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  
+  &TotalPrice {
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+  
+  &Delivery {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1rem;
+  }
+  
+  &DeliveryDate {
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+  
+  &Items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  &Item {
+    display: flex;
+  }
+  
+  &ItemImage {
+    width: 6rem;
+    height: 6rem;
+    background-color: #f3f4f6;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    margin-right: 1rem;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  &ItemDetails {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  &ItemName {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  &ItemMeta {
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+  }
+  
+  &ItemPrice {
+    font-weight: 500;
+    margin-top: 0.25rem;
+  }
+}

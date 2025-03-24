@@ -1,0 +1,104 @@
+@use "@styles/variables.module.scss" as var;
+@use "sass:color";
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  padding: 0.5rem 1rem;
+
+  &:disabled {
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  &.default {
+    background-color: var.$primaryColor;
+    color: var.$primaryForeground;
+
+    &:hover {
+      background-color: rgba(var.$primaryColor, 0.9);
+    }
+  }
+
+  &.destructive {
+    background-color: var.$destructiveColor;
+    color: var.$destructiveForeground;
+
+    &:hover {
+      background-color: color.mix(var.$hardOrange, var.$whiteColor, 90%);
+    }
+  }
+
+  &.outline {
+    border: 1px solid var.$inputBorderColor;
+    background-color: var.$lightGrey;
+    color: var.$primary;
+    // cursor: pointer;
+    
+    &:hover {
+      background-color: var.$accentColor;
+      color: var.$accentForeground;
+      opacity: 50%;
+    }
+  }
+
+  &.secondary {
+    background-color: var.$secondaryColor;
+    color: var.$secondaryForeground;
+
+    &:hover {
+      background-color: color.mix(var.$sencondary, var.$whiteColor, 80%);
+    }
+  }
+
+  &.ghost {
+    background-color: transparent;
+
+    &:hover {
+      background-color: var.$accentColor;
+      color: var.$accentForeground;
+    }
+  }
+
+  &.link {
+    color: var.$primaryColor;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &.default-size {
+    height: 2.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  &.sm {
+    height: 2.25rem;
+    min-width: 7rem;
+    padding: 0.375rem 0.75rem;
+  }
+
+  &.lg {
+    height: 2.75rem;
+    padding: 0.625rem 1.5rem;
+  }
+
+  &.icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

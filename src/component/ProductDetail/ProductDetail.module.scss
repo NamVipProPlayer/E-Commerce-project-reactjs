@@ -1,0 +1,321 @@
+.equalHeightRow {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+    min-height: 600px;
+    padding-top: 20px; // Add some spacing at the top
+}
+
+.imageColumn,
+.cardColumn {
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.imageWrapper {
+    position: relative; // For handling both images
+    height: 100%;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.02);
+
+        .productImageSecondary {
+            opacity: 1;
+        }
+    }
+}
+
+.productImage,
+.productImageSecondary {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: all 0.3s ease;
+}
+
+.productImageSecondary {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.productCard {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 2rem;
+    overflow-y: auto;
+   
+    // Improved scrollbar styling
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+
+        &:hover {
+            background: #555;
+        }
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+    }
+
+    h3.text-primary {
+        font-size: 1.75rem;
+        color: #3498db !important;
+        font-weight: 500;
+    }
+
+    h5 {
+        color: #34495e;
+        margin-bottom: 1rem;
+        font-weight: 500;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+       
+
+        li { 
+            
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+
+            // &:before {
+            //     content: "•";
+            //     color: #3498db;
+            //     position: absolute;
+            //     left: 0;
+            //     font-weight: bold;
+            // }
+        }
+    }
+}
+
+.bottomSection {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.backToPageContainer{
+    width: wrap;
+}
+.backToPage{
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover{
+        border-bottom: 2px solid #888 ;
+    }
+}
+
+// Loading animation
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    
+    .loadingSpinner {
+        width: 60px;
+        height: 60px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+// Error and Not Found styles
+.error,
+.notFound {
+    text-align: center;
+    padding: 3rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        color: #e74c3c;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+
+    p {
+        margin-bottom: 2rem;
+        color: #7f8c8d;
+        line-height: 1.6;
+    }
+
+    button {
+        padding: 0.75rem 2rem;
+        font-weight: 500;
+    }
+}
+
+// Form Controls
+.form-control {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.5rem;
+    transition: border-color 0.2s ease;
+
+    &:focus {
+        border-color: #3498db;
+        box-shadow: none;
+    }
+}
+
+// Badge Styling
+:global(.badge) {
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+// Button Styling
+:global(.btn) {
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    &:hover {
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+    .equalHeightRow {
+        min-height: auto;
+        padding-top: 10px;
+    }
+
+    .imageWrapper {
+        height: 350px;
+        margin-bottom: 1.5rem;
+    }
+
+    .productCard {
+        height: auto;
+    }
+
+    .cardContent {
+        padding: 1.5rem;
+
+        h1 {
+            font-size: 1.75rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+    }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+    .productCard {
+        background: #2c3e50;
+        
+        .cardContent {
+            h1, h5 {
+                color: #ecf0f1;
+            }
+
+            ul li {
+                color: #bdc3c7;
+            }
+        }
+    }
+
+    .form-control {
+        background: #34495e;
+        border-color: #2c3e50;
+        color: #ecf0f1;
+
+        &:focus {
+            background: #2c3e50;
+        }
+    }
+}
+/* Add these styles to your existing ProductDetail.module.scss file */
+
+.quantityControls {
+  display: flex;
+  align-items: center;
+  max-width: 120px;
+}
+
+.smallButton {
+  min-width: 30px;
+  height: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.quantityInput {
+  width: 50px;
+  text-align: center;
+  margin: 0 5px;
+  padding: 0.25rem 0.5rem;
+  height: 30px;
+
+  /* Remove number input arrows */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* Firefox */
+  -moz-appearance: textfield;
+}

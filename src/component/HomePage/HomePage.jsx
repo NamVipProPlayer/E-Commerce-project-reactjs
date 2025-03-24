@@ -21,20 +21,21 @@ function HomePage() {
     }, []);
 
     return (
-        <div className={container}>
-            <MainLayout>
-                <Header />
-                <Banner />
-                <InfoSection />
-                <AdvanceHeading />
-                <ListProduct data={listProduct.slice(0, 2)} />
-                <PopularProduct
-                    data={listProduct.slice(2, 10)}
-                />
-                <ScrollBanner/>
-                <Footer/>
-            </MainLayout>
-        </div>
+        <>
+        {/* <Header/> */}
+            <div className={container}>
+                <MainLayout>
+                    {/* <Header /> */}
+                    <Banner />
+                    <InfoSection />
+                    <AdvanceHeading />
+                    <ListProduct data={listProduct.slice(0, 2)} />
+                    <PopularProduct data={listProduct.slice(2, 10)} />
+                    <ScrollBanner />
+                    {/* <Footer /> */}
+                </MainLayout>
+            </div>
+        </>
     );
 }
 

@@ -1,0 +1,33 @@
+// Updated CheckOut.module.scss - Simplified after moving payment styles to PaymentSection.scss
+.checkoutPage {
+  min-height: 100vh;
+  background-color: #f3f4f6; // gray-100
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1.5rem;
+  justify-content: center;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+  
+  &__formColumn {
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  &__summaryColumn {
+    @media (min-width: 768px) {
+      width: 50%;
+    }
+    margin-top: 2rem;
+    
+    @media (min-width: 768px) {
+      margin-top: 0;
+    }
+  }
+}

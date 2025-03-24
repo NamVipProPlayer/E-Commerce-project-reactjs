@@ -1,0 +1,36 @@
+@use "@styles/variables.module.scss" as var;
+
+.container {
+    position: relative;
+
+    .overlayContainer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(8px);
+        transition: all 0.3s ease;
+        // background-color: var.$primary;
+        z-index: 5000;
+        backdrop-filter: blur(8px);
+    }
+
+    .SideBar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 420px;
+        min-height: 100vh;
+        background-color: var.$whiteColor;
+        overflow: hidden;
+        scrollbar-width: none;
+        z-index: 5001;
+        transform: translateX(100%);
+        transition: transform 0.3s;
+    }
+    .sideBarOpen{
+        transform: translateX(0%);
+        transition: transform 0.3s;
+    }
+}

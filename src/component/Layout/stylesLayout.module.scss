@@ -2,15 +2,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-   
- 
+    overflow: hidden;
 }
 
 .container {
     width: 100%;
+    overflow: hidden;
     // height: 100vh;
 }
-.containerSection{
+.containerSection {
     width: 1250px;
-  
 }
