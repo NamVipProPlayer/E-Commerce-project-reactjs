@@ -29,10 +29,10 @@ const paymentService = {
             };
 
             // Make POST request to create payment URL
-            //https://backendimg-rmha.onrender.com
+            //https://vnpaynammapvipproplayer.onrender.com
             //http://localhost:8888
             const response = await axios.post(
-                "https://backendimg-rmha.onrender.com/order/create_payment_url",
+                "https://vnpaynammapvipproplayer.onrender.com/order/create_payment_url",
                 requestData
             );
 
