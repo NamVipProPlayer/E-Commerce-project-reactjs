@@ -6,19 +6,25 @@ import InfoSection from "@component/SectionInfo/InfoSection";
 import AdvanceHeading from "@component/AdvanceHeading/AdvanceHeading";
 import ListProduct from "@component/ListProductHeading/ListProductHeading";
 import { getProduct } from "@/apis/productService.js";
-import { useEffect, useState } from "react";
+import shoesProductService from "@apis/shoesProductService.js";
+import { useEffect, useMemo, useState } from "react";
 import PopularProduct from "@component/PopularProduct/PopularProduct";
 import ScrollBanner from "@component/ScrollBanner/ScrollBanner";
 import Footer from "@component/Footer/Footer";
 function HomePage() {
     const { container } = styles;
     const [listProduct, setListProduct] = useState([]);
+    
 
     useEffect(() => {
-        getProduct().then((res) => {
+        shoesProductService.getAllShoesProducts().then((res) => {
             setListProduct(res);
         });
     }, []);
+
+    const bestSellerProducts = useMemo(() => {
+        return listProduct.filter((item) => item.bestSeller === true);
+    }, [listProduct]);
 
     return (
         <>
@@ -29,8 +35,8 @@ function HomePage() {
                     <Banner />
                     <InfoSection />
                     <AdvanceHeading />
-                    <ListProduct data={listProduct.slice(0, 2)} />
-                    <PopularProduct data={listProduct.slice(2, 10)} />
+                    <ListProduct data={bestSellerProducts.slice(0,2)} />
+                    <PopularProduct data={bestSellerProducts.slice(2,10)} />
                     <ScrollBanner />
                     {/* <Footer /> */}
                 </MainLayout>

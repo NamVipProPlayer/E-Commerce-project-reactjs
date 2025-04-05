@@ -5,6 +5,7 @@ import cartService from "@apis/cartService.js";
 import { toast } from "react-toastify";
 import { AuthContext } from "@Contexts/AuthContext.jsx";
 import { SideBarContext } from "@Contexts/SideBarProvider.jsx";
+import { CountsContext } from "@Contexts/CountContext.jsx"; // Import CountsContext
 import ProductCard from "../ProductCard/ProductCard.jsx";
 import { Modal } from "react-bootstrap";
 
@@ -28,7 +29,9 @@ function ItemProduct({ product, onDelete }) {
     const { auth } = useContext(AuthContext);
     // Access sidebar context to open sidebar with login if necessary
     const { setIsOpen, setType } = useContext(SideBarContext);
-
+    // Access counts context for cart count updates
+    const { incrementCartCount, fetchCounts } = useContext(CountsContext);
+   
     // Check if user is authenticated
     const isAuthenticated = !!auth?.token;
 
@@ -53,8 +56,9 @@ function ItemProduct({ product, onDelete }) {
         // Check if user is logged in
         if (!isAuthenticated) {
             redirectToLogin();
-            return false; // Return false to indicate failure
+            return false;
         }
+        
         try {
             setIsLoading(true);
 
@@ -64,18 +68,32 @@ function ItemProduct({ product, onDelete }) {
                 quantity: 1
             };
 
+            // First update the UI immediately for responsive feedback
+            incrementCartCount();
+            
+            // Then make the API call
             await cartService.addToCart(cartData);
+            
+            // Show success message
+            toast.success("Added to cart successfully!", {
+                position: "top-right",
+                autoClose: 2000
+            });
 
             // Hide the modal after successful addition
             setShowProductModal(false);
-            return true; // Return true to indicate success
+            return true;
         } catch (error) {
             console.error("Error adding product to cart:", error);
+            
+            // If the API call fails, revert the count increment
+            fetchCounts(); // Refresh counts to ensure accuracy
+            
             toast.error("Failed to add product to cart", {
                 position: "top-right",
                 autoClose: 2000
             });
-            return false; // Return false to indicate failure
+            return false;
         } finally {
             setIsLoading(false);
         }
@@ -83,6 +101,10 @@ function ItemProduct({ product, onDelete }) {
 
     // Handler for opening the product modal
     const handleOpenProductModal = () => {
+        if (!isAuthenticated) {
+            redirectToLogin();
+            return;
+        }
         setShowProductModal(true);
     };
 
@@ -99,13 +121,13 @@ function ItemProduct({ product, onDelete }) {
                 modalBackdrop.style.backdropFilter = "blur(8px)";
                 modalBackdrop.style.webkitBackdropFilter = "blur(8px)";
                 modalBackdrop.style.opacity = "0.5";
-                modalBackdrop.style.zIndex = "6000"; // Set overlay z-index to 6000
+                modalBackdrop.style.zIndex = "6000";
             }
 
             // Set the modal content z-index
             const modalContent = document.querySelector(".modal");
             if (modalContent) {
-                modalContent.style.zIndex = "10000"; // Set modal content z-index to 10000
+                modalContent.style.zIndex = "10000";
             }
         }
     }, [showProductModal]);
@@ -126,7 +148,7 @@ function ItemProduct({ product, onDelete }) {
             </div>
             <div className={productButton}>
                 <button onClick={handleOpenProductModal} disabled={isLoading}>
-                    Add to Cart
+                    {isLoading ? "Adding..." : "Add to Cart"}
                 </button>
             </div>
 
@@ -144,8 +166,8 @@ function ItemProduct({ product, onDelete }) {
                 size="lg"
                 aria-labelledby="product-modal"
                 className={modalContent}
-                container={document.body} // Render directly to body
-                style={{ zIndex: 10000 }} // Also set z-index in props
+                container={document.body}
+                style={{ zIndex: 10000 }}
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="product-modal">Select Size</Modal.Title>

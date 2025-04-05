@@ -26,21 +26,16 @@ const productSchema = z.object({
     description: z.string().min(1, "Description is required"),
     price: z.number().min(0, "Price must be positive"),
     stock: z.number().min(0, "Stock must be positive"),
-    sizes: z
-        .array(z.number().min(1, "Size must be valid"))
-        .nonempty("At least one size is required"),
-    colors: z
-        .array(
-            z
-                .string()
-                .regex(
-                    /^#?[0-9a-fA-F]{3,6}$/,
-                    "Color must be a valid name or hex code"
-                )
-        )
-        .nonempty("At least one color is required"),
+    sizes: z.string().min(1, "At least one size is required"),
+    colors: z.string().min(1, "At least one color is required"),
     fSrc: z.string().url("Must be a valid URL"),
-    sSrc: z.string().url("Must be a valid URL")
+    sSrc: z.string().url("Must be a valid URL"),
+    sale: z
+        .number()
+        .min(0, "Sale must be non-negative")
+        .max(100, "Sale cannot exceed 100%")
+        .optional(),
+    bestSeller: z.boolean().optional()
 });
 
 export function ProductForm({ open, onOpenChange, onSubmit, isSubmitting }) {
@@ -51,16 +46,18 @@ export function ProductForm({ open, onOpenChange, onSubmit, isSubmitting }) {
     const form = useForm({
         resolver: zodResolver(productSchema),
         defaultValues: {
-            name: "abc",
+            name: "",
             brand: "Nike",
             category: "",
             description: "",
             price: undefined,
             stock: undefined,
-            sizes: [],
-            colors: [],
+            sizes: "", // Change from array to string
+            colors: "", // Change from array to string
             fSrc: "",
-            sSrc: ""
+            sSrc: "",
+            sale: 0,
+            bestSeller: false
         }
     });
 
@@ -73,7 +70,7 @@ export function ProductForm({ open, onOpenChange, onSubmit, isSubmitting }) {
             const formatInput = (input) =>
                 typeof input === "string"
                     ? input
-                          .split(/[\s,]+/) // Split by spaces or commas
+                          .split(/[,]+/) // Split by commas
                           .map((item) => item.trim())
                           .filter((item) => item !== "")
                     : Array.isArray(input)
@@ -83,8 +80,14 @@ export function ProductForm({ open, onOpenChange, onSubmit, isSubmitting }) {
             // Format the sizes as numbers and colors as strings
             const formattedData = {
                 ...formData,
-                sizes: formatInput(formData.sizes).map((size) => Number(size)),
-                colors: formatInput(formData.colors)
+                sizes: formatInput(formData.sizes).map((size) => {
+                    // Try to convert to number, but if it fails, keep as string
+                    const sizeNum = Number(size);
+                    return !isNaN(sizeNum) ? sizeNum : size;
+                }),
+                colors: formatInput(formData.colors),
+                sale: formData.sale || 0, // Ensure sale is at least 0
+                bestSeller: !!formData.bestSeller // Ensure bestSeller is boolean
             };
 
             console.log("Sending formatted data:", formattedData);
@@ -96,7 +99,7 @@ export function ProductForm({ open, onOpenChange, onSubmit, isSubmitting }) {
                 queryFn: shoesProductService.getAllShoesProducts()
             });
             toast("Add product successful!", {
-                position: "bottom-right",
+                position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: true,
                 closeOnClick: true,
@@ -110,6 +113,9 @@ export function ProductForm({ open, onOpenChange, onSubmit, isSubmitting }) {
             console.log("Response:", response.data);
         } catch (error) {
             console.error("Error submitting form:", error);
+            toast.error(
+                "Failed to add product: " + (error.message || "Unknown error")
+            );
         }
     };
 
@@ -392,6 +398,64 @@ export function ProductForm({ open, onOpenChange, onSubmit, isSubmitting }) {
                                     )}
                                 </div>
                             </div>
+
+                            {/* New Sale and Best Seller Fields */}
+                            <div className={styles.formRow}>
+                                <div className={styles.formGroup}>
+                                    <label
+                                        className={styles.label}
+                                        htmlFor="sale"
+                                    >
+                                        Sale Discount (%)
+                                    </label>
+                                    <input
+                                        id="sale"
+                                        type="number"
+                                        min="0"
+                                        max="100"
+                                        step="1"
+                                        {...form.register("sale", {
+                                            valueAsNumber: true
+                                        })}
+                                        className={`${styles.input} ${
+                                            form.formState.errors.sale
+                                                ? styles.errorInput
+                                                : ""
+                                        }`}
+                                        placeholder="0"
+                                    />
+                                    {form.formState.errors.sale && (
+                                        <span className={styles.errorText}>
+                                            {form.formState.errors.sale.message}
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div className={styles.formGroup}>
+                                    <div className={styles.checkboxContainer}>
+                                        <input
+                                            id="bestSeller"
+                                            type="checkbox"
+                                            {...form.register("bestSeller")}
+                                            className={styles.checkbox}
+                                        />
+                                        <label
+                                            className={styles.checkboxLabel}
+                                            htmlFor="bestSeller"
+                                        >
+                                            Mark as Best Seller
+                                        </label>
+                                    </div>
+                                    {form.formState.errors.bestSeller && (
+                                        <span className={styles.errorText}>
+                                            {
+                                                form.formState.errors.bestSeller
+                                                    .message
+                                            }
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
                         </div>
 
                         {/* Right Column - Options & Images */}
@@ -417,8 +481,8 @@ export function ProductForm({ open, onOpenChange, onSubmit, isSubmitting }) {
                                     placeholder="Comma-separated sizes (e.g., 7, 8, 9)"
                                 />
                                 <span className={styles.helpText}>
-                                    Enter sizes separated by commas (e.g., 7, 8,
-                                    9, 10)
+                                    Enter sizes separated by commas (e.g.,
+                                    40,41,42,43)
                                 </span>
                                 {form.formState.errors.sizes && (
                                     <span className={styles.errorText}>
@@ -482,8 +546,8 @@ export function ProductForm({ open, onOpenChange, onSubmit, isSubmitting }) {
                                     />
                                 </div>
                                 <span className={styles.helpText}>
-                                    Enter hex color codes separated by commas or
-                                    use the color picker
+                                    Enter colors separated by commas (e.g., Red,
+                                    Summit White, Black)
                                 </span>
                                 {form.formState.errors.colors && (
                                     <span className={styles.errorText}>
@@ -636,30 +700,23 @@ export function ProductForm({ open, onOpenChange, onSubmit, isSubmitting }) {
                             Cancel
                         </button>
                         <button
-                            type="button"
-                            onClick={handleSubmit}
-                            disabled={isSubmitting}
+                            type="submit"
                             className={styles.submitButton}
+                            disabled={isSubmitting}
                         >
                             {isSubmitting ? (
                                 <>
-                                    <Loader2 className={styles.loader} />
-                                    <span>Adding Product...</span>
+                                    <Loader2
+                                        size={16}
+                                        className="animate-spin mr-2"
+                                    />
+                                    Adding...
                                 </>
                             ) : (
-                                <span>Add Product</span>
+                                "Add Product"
                             )}
                         </button>
                     </div>
-
-                    {/* <div className={styles.formFooter}>
-                        <span className={styles.timestamp}>
-                            Last updated: 2025-03-17 13:24:12
-                        </span>
-                        <span className={styles.userInfo}>
-                            User: NamProPlayer20
-                        </span>
-                    </div> */}
                 </form>
             </DialogContent>
         </Dialog>

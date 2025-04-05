@@ -2,6 +2,7 @@ import { useContext, useEffect, useState, useRef } from "react";
 import styles from "./stylesSideBar.module.scss";
 import { SideBarContext } from "@Contexts/SideBarProvider.jsx";
 import { AuthContext } from "@Contexts/AuthContext.jsx";
+import { CountsContext } from "@Contexts/CountContext.jsx"; // Import CountsContext
 import classNames from "classnames";
 import LoginUI from "@component/SideBarContent/LoginUI/LoginUI";
 import ShoppingCart from "@component/SideBarContent/ShopingCart/ShopingCart";
@@ -21,6 +22,10 @@ function SideBar() {
     const [isLoading, setIsLoading] = useState(false);
     const navigatingRef = useRef(false);
 
+    // Get counts update functions from CountsContext
+    const { decrementWishlistCount, decrementCartCount, fetchCounts } =
+        useContext(CountsContext);
+
     // Check if user is authenticated
     const isAuthenticated = !!auth?.token;
 
@@ -32,6 +37,8 @@ function SideBar() {
         try {
             const data = await wishlistService.getWishlist();
             setWishlist(data.products || []);
+            // Refresh counts to ensure they're accurate
+            fetchCounts();
         } catch (error) {
             console.error("Error fetching wishlist:", error);
             toast.error("Failed to load wishlist items");
@@ -48,6 +55,8 @@ function SideBar() {
         try {
             const data = await cartService.getCart();
             setCart(data.items || []);
+            // Refresh counts to ensure they're accurate
+            fetchCounts();
         } catch (error) {
             console.error("Error fetching cart:", error);
             toast.error("Failed to load cart items");
@@ -59,31 +68,76 @@ function SideBar() {
     // Delete Product from Wishlist
     const handleDeleteFromWishlist = async (productId) => {
         try {
-            await wishlistService.removeFromWishlist(productId);
+            // First update UI immediately
             setWishlist((prevWishlist) =>
                 prevWishlist.filter((item) => item.product._id !== productId)
             );
+
+            // Update count immediately for responsive UI
+            decrementWishlistCount();
+
+            // Then perform API call
+            await wishlistService.removeFromWishlist(productId);
             toast.success("Item removed from wishlist");
         } catch (error) {
             console.error("Error removing product from wishlist:", error);
             toast.error("Failed to remove item from wishlist");
+
+            // Refresh data in case of error
+            fetchWishlist();
+            fetchCounts();
         }
     };
 
     // Delete Product from Cart
     const handleDeleteFromCart = async (productId, size) => {
         try {
-            await cartService.removeFromCart(productId, size);
+            // First update UI immediately
             setCart((prevCart) =>
                 prevCart.filter(
                     (item) =>
                         !(item.product._id === productId && item.size === size)
                 )
             );
+
+            // Update count immediately for responsive UI
+            decrementCartCount();
+
+            // Then perform API call
+            await cartService.removeFromCart(productId, size);
             toast.success("Item removed from cart");
         } catch (error) {
             console.error("Error removing product from cart:", error);
             toast.error("Failed to remove item from cart");
+
+            // Refresh data in case of error
+            fetchCart();
+            fetchCounts();
+        }
+    };
+
+    // Update quantity in cart
+    const handleUpdateCartQuantity = async (productId, size, quantity) => {
+        try {
+            await cartService.updateCartItemQuantity(productId, size, quantity);
+
+            // Update local cart data
+            setCart((prevCart) =>
+                prevCart.map((item) =>
+                    item.product._id === productId && item.size === size
+                        ? { ...item, quantity }
+                        : item
+                )
+            );
+
+            // No need to update count since item count doesn't change,
+            // just the quantity of an existing item
+
+            toast.success("Quantity updated");
+        } catch (error) {
+            console.error("Error updating quantity:", error);
+            toast.error("Failed to update quantity");
+            fetchCart();
         }
     };
 
@@ -117,9 +171,17 @@ function SideBar() {
 
     // Fixed: Handle category navigation - prevent sidebar from showing up after navigation
     useEffect(() => {
-        // Check if type is Men or Women and we're not already navigating
-        if ((type === "Men" || type === "Women") && !navigatingRef.current) {
-            const category = type === "Men" ? "Man's Shoes" : "Women's shoes";
+        // Check if type is Men, Women, or Sale and we're not already navigating
+        if ((type === "Men" || type === "Women" || type === "Sale") && !navigatingRef.current) {
+            let navigationState = {};
+            
+            if (type === "Men") {
+                navigationState = { category: "Man's Shoes" };
+            } else if (type === "Women") {
+                navigationState = { category: "Women's shoes" };
+            } else if (type === "Sale") {
+                navigationState = { onSale: true }; // Special state for sale items
+            }
 
             // Set navigating flag to prevent re-processing
             navigatingRef.current = true;
@@ -129,9 +191,7 @@ function SideBar() {
 
             // Use setTimeout to ensure the sidebar closes before navigating
             setTimeout(() => {
-                navigate("/OurStore", {
-                    state: { category }
-                });
+                navigate("/OurStore", { state: navigationState });
 
                 // Reset the type after navigation completes
                 setTimeout(() => {
@@ -154,9 +214,10 @@ function SideBar() {
                 return "Store Locator Coming Soon";
             case "Men":
             case "Women":
+            case "Sale":
                 return (
                     <div className={styles.redirectingMessage}>
-                        Redirecting to {type}'s shoes...
+                        Redirecting to {type === "Sale" ? "Sale Items" : `${type}'s shoes`}...
                     </div>
                 );
             case "wishlist":

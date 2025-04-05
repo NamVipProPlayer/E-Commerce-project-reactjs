@@ -379,132 +379,132 @@
 }
 
 /* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .paymentContainer {
-    background-color: #121212;
-    border-color: #333333;
-  }
+// @media (prefers-color-scheme: dark) {
+//   .paymentContainer {
+//     background-color: #121212;
+//     border-color: #333333;
+//   }
   
-  .title, .sectionTitle {
-    color: #ffffff;
-  }
+//   .title, .sectionTitle {
+//     color: #ffffff;
+//   }
   
-  .input {
-    background-color: #1e1e1e;
-    border-color: #3d3d3d;
-    color: #ffffff;
+//   .input {
+//     background-color: #1e1e1e;
+//     border-color: #3d3d3d;
+//     color: #ffffff;
     
-    &:focus {
-      border-color: #ffffff;
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
-    }
+//     &:focus {
+//       border-color: #ffffff;
+//       box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+//     }
     
-    &:disabled {
-      background-color: #1a1a1a;
-      color: #999999;
-    }
-  }
+//     &:disabled {
+//       background-color: #1a1a1a;
+//       color: #999999;
+//     }
+//   }
   
-  .paymentSummary {
-    background-color: #1e1e1e;
-  }
+//   .paymentSummary {
+//     background-color: #1e1e1e;
+//   }
   
-  .summaryRow {
-    color: #e0e0e0;
-  }
+//   .summaryRow {
+//     color: #e0e0e0;
+//   }
   
-  .totalRow {
-    border-top-color: #333333;
-    color: #ffffff;
-  }
+//   .totalRow {
+//     border-top-color: #333333;
+//     color: #ffffff;
+//   }
   
-  .option {
-    background-color: #1e1e1e;
-    border-color: #3d3d3d;
+//   .option {
+//     background-color: #1e1e1e;
+//     border-color: #3d3d3d;
     
-    &:hover:not(:disabled) {
-      border-color: #ffffff;
-      background-color: #252525;
-    }
+//     &:hover:not(:disabled) {
+//       border-color: #ffffff;
+//       background-color: #252525;
+//     }
     
-    &.selected {
-      border-color: #ffffff;
-      background-color: #252525;
-      box-shadow: 0 0 0 1px #ffffff;
-    }
-  }
+//     &.selected {
+//       border-color: #ffffff;
+//       background-color: #252525;
+//       box-shadow: 0 0 0 1px #ffffff;
+//     }
+//   }
   
-  .text, .icon {
-    color: #e0e0e0;
-  }
+//   .text, .icon {
+//     color: #e0e0e0;
+//   }
   
-  .creditCardForm, .message {
-    background-color: #1e1e1e;
-    border-color: #3d3d3d;
-  }
+//   .creditCardForm, .message {
+//     background-color: #1e1e1e;
+//     border-color: #3d3d3d;
+//   }
   
-  .label {
-    color: #e0e0e0;
-  }
+//   .label {
+//     color: #e0e0e0;
+//   }
   
-  .message p {
-    color: #e0e0e0;
-  }
+//   .message p {
+//     color: #e0e0e0;
+//   }
   
-  .message small {
-    color: #b0b0b0;
-  }
+//   .message small {
+//     color: #b0b0b0;
+//   }
   
-  .noticeInfo {
-    background-color: #252525;
-    border-left-color: #666666;
-  }
+//   .noticeInfo {
+//     background-color: #252525;
+//     border-left-color: #666666;
+//   }
   
-  .noticeInfo small {
-    color: #b0b0b0;
-  }
+//   .noticeInfo small {
+//     color: #b0b0b0;
+//   }
   
-  .termsNote {
-    color: #b0b0b0;
-  }
+//   .termsNote {
+//     color: #b0b0b0;
+//   }
   
-  .termsLink {
-    color: #ffffff;
+//   .termsLink {
+//     color: #ffffff;
     
-    &:hover {
-      color: #cccccc;
-    }
-  }
+//     &:hover {
+//       color: #cccccc;
+//     }
+//   }
   
-  .errorMessage {
-    background-color: rgba(209, 0, 0, 0.1);
-  }
+//   .errorMessage {
+//     background-color: rgba(209, 0, 0, 0.1);
+//   }
   
-  .successMessage {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-  }
+//   .successMessage {
+//     background-color: rgba(255, 255, 255, 0.1);
+//     color: #ffffff;
+//   }
   
-  .freeShipping {
-    color: #ffffff;
-  }
+//   .freeShipping {
+//     color: #ffffff;
+//   }
   
-  .freeShippingNote {
-    color: #b0b0b0;
-  }
+//   .freeShippingNote {
+//     color: #b0b0b0;
+//   }
   
-  .securityNote .securityIcon,
-  .secureInfo .securityIcon {
-    color: #ffffff;
-  }
+//   .securityNote .securityIcon,
+//   .secureInfo .securityIcon {
+//     color: #ffffff;
+//   }
   
-  .completePurchaseButton {
-    &:disabled {
-      background-color: #333333;
-    }
+//   .completePurchaseButton {
+//     &:disabled {
+//       background-color: #333333;
+//     }
     
-    &.processing {
-      background-color: #444444;
-    }
-  }
-}
+//     &.processing {
+//       background-color: #444444;
+//     }
+//   }
+// }

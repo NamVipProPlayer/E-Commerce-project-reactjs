@@ -1,9 +1,8 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "@Contexts/AuthContext";
 import { SideBarContext } from "@Contexts/SideBarProvider.jsx";
-import { StorageContext } from "@Contexts/StorageProvider.jsx"; // Add this import
-import cartService from "@apis/cartService"; // Add this import
-import wishlistService from "@apis/wishlistService"; // Add this import
+import { StorageContext } from "@Contexts/StorageProvider.jsx";
+// import useCountsFetcher from "@Hooks/useCountsFecher.js"; // Import our new hook
 import { dataMenu } from "./constant";
 import Menu from "./Menu/Menu";
 import styles from "./stylesHeader.module.scss";
@@ -14,7 +13,7 @@ import { CiHeart } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa"; // Added social media icons
 import { useNavigate } from "react-router-dom";
-import { set } from "react-hook-form";
+import { CountsContext } from "@Contexts/CountContext.jsx";
 
 function Header() {
     const {
@@ -35,74 +34,16 @@ function Header() {
 
     const navigate = useNavigate();
     const { isOpen, setIsOpen, setType } = useContext(SideBarContext);
-    const { auth, setAuth } = useContext(AuthContext);
+    const { auth } = useContext(AuthContext);
     const { isMenuOpen, isScreenSmall, handleMenuToggle } =
         useTrackingSizeScr();
     const isHidden = useHideOnScroll();
-
-    const [cartCount, setCartCount] = useState(0);
-    const [wishlistCount, setWishlistCount] = useState(0);
     const { userInfo } = useContext(StorageContext);
-    const isAuthenticated = !!auth?.token;
-
-    // Fetch cart and wishlist counts
-    useEffect(() => {
-        const fetchCounts = async () => {
-            if (isAuthenticated) {
-                try {
-                    // Fetch cart count
-                    const cartResponse = await cartService.getCart();
-                    if (cartResponse && cartResponse.items) {
-                        setCartCount(cartResponse.items.length);
-                    }
-
-                    // Fetch wishlist count
-                    const wishlistResponse =
-                        await wishlistService.getWishlist();
-                    console.log("Wishlist response:", wishlistResponse);
-
-                    // Check if response has products array
-                    if (
-                        wishlistResponse &&
-                        wishlistResponse.products &&
-                        Array.isArray(wishlistResponse.products)
-                    ) {
-                        setWishlistCount(wishlistResponse.products.length);
-                    } else if (
-                        wishlistResponse &&
-                        Array.isArray(wishlistResponse)
-                    ) {
-                        // Fallback for array response format
-                        setWishlistCount(wishlistResponse.length);
-                    } else {
-                        console.warn(
-                            "Unexpected wishlist format:",
-                            wishlistResponse
-                        );
-                        setWishlistCount(0);
-                    }
-                } catch (error) {
-                    console.error("Error fetching counts:", error);
-                }
-            } else {
-                // Reset counts when logged out
-                setCartCount(0);
-                setWishlistCount(0);
-            }
-        };
-
-        fetchCounts();
-
-        // Optional: Setup interval to refresh counts periodically
-        const intervalId = setInterval(fetchCounts, 3000); // Refresh every minute
-
-        return () => clearInterval(intervalId);
-    }, [isAuthenticated]);
+    const { cartCount, wishlistCount } = useContext(CountsContext);
 
     const handleOpenSideBar = (type) => {
         setIsOpen(true);
-        setType((prevTpye) => {
-            // console.log("Previous type:", prevType);
+        setType((prevType) => {
             console.log("New type:", type);
             return type;
         });

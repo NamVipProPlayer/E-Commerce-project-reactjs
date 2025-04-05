@@ -4,7 +4,7 @@ import CountDownBanner from "@component/CountDownBanner/CountDountBanner";
 
 function ListProduct({ data }) {
     const { container, wrapContent, containerItems, countDown } = styles;
-
+console.log("check data best seller",data);
    
     return (
         <div className={wrapContent}>
@@ -17,8 +17,10 @@ function ListProduct({ data }) {
                         return (
                             <ProductItems
                                 key={item.id || index}
-                                src={item.src}
-                                prevSrc={item.prevSrc}
+                                product={item}
+                                itemId={item._id}
+                                src={item.fSrc}
+                                prevSrc={item.sSrc}
                                 name={item.name}
                                 price={item.price}
                             />

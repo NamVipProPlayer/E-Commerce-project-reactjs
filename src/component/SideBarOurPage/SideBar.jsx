@@ -5,6 +5,29 @@ import { ArrowLeftIcon, ChevronDown, ChevronUp } from "lucide-react";
 import styles from "./stylesSidebar.module.scss";
 import { useNavigation } from "@Hooks/useNavigate.js";
 
+const SaleFilterSection = ({ filters, onChange }) => {
+    return (
+        <div className={styles.filterSection}>
+            <h3>Special Offers</h3>
+            <div className={styles.checkboxGroup}>
+                <label className={styles.checkboxLabel}>
+                    <input
+                        type="checkbox"
+                        checked={filters.onSale}
+                        onChange={(e) => {
+                            onChange({
+                                ...filters,
+                                onSale: e.target.checked
+                            });
+                        }}
+                    />
+                    <span>On Sale Items</span>
+                </label>
+            </div>
+        </div>
+    );
+};
+
 export default function Sidebarss({ onFilterChange, initialCategory }) {
     const { handleNavigation } = useNavigation();
 
@@ -19,7 +42,8 @@ export default function Sidebarss({ onFilterChange, initialCategory }) {
         let initialFilters = {
             category: [],
             price: null,
-            colorSearch: ""
+            colorSearch: "",
+            onSale: false
         };
 
         if (initialCategory) {
@@ -104,7 +128,8 @@ export default function Sidebarss({ onFilterChange, initialCategory }) {
         setFilters({
             category: [],
             price: null,
-            colorSearch: ""
+            colorSearch: "",
+            onSale: false
         });
     };
 
@@ -113,6 +138,9 @@ export default function Sidebarss({ onFilterChange, initialCategory }) {
             <div className={styles.section}>
                 <h1>Shoes</h1>
             </div>
+
+            {/* SALE FILTER - Moved to the top */}
+            <SaleFilterSection filters={filters} onChange={setFilters} />
 
             {/* CATEGORY FILTER */}
             <div className={styles.section}>
@@ -198,7 +226,6 @@ export default function Sidebarss({ onFilterChange, initialCategory }) {
                 )}
             </div>
 
-           
             <div className={styles.backButton}>
                 <ArrowLeftIcon />
                 <span

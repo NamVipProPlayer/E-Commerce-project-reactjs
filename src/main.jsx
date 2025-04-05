@@ -21,7 +21,8 @@ import OrderDetails from "@component/OrderManager/OrderDetail.jsx";
 import OrdersPage from "@component/OrderManager/OrderPage.jsx";
 import Profile from "@component/Profile/Profile.jsx";
 import ChangePassword from "@component/Profile/ChangePassword/ChangePassword.jsx";
-
+import { Bounce, ToastContainer } from "react-toastify";
+import { CountsProvider } from "@Contexts/CountContext";
 // Create a query client
 const queryClient = new QueryClient();
 
@@ -31,7 +32,7 @@ const routers = createBrowserRouter([
         path: "/",
         element: (
             <>
-                <SideBar /> 
+                <SideBar />
                 <App />
             </>
         )
@@ -50,6 +51,7 @@ const routers = createBrowserRouter([
         element: (
             <>
                 <Dashboard />
+                
             </>
         )
     },
@@ -114,22 +116,20 @@ const routers = createBrowserRouter([
             </Layout>
         )
     },
-    { path: "/account/change-password",
-        element: (
-            <ChangePassword />
-        )
-     }
+    { path: "/account/change-password", element: <ChangePassword /> }
 ]);
 
 createRoot(document.getElementById("root")).render(
     <StorageProvider>
         <StrictMode>
             <AuthProvider>
-                <QueryClientProvider client={queryClient}>
-                    <SideBarProvider>
-                        <RouterProvider router={routers} />
-                    </SideBarProvider>
-                </QueryClientProvider>
+                <CountsProvider>
+                    <QueryClientProvider client={queryClient}>
+                        <SideBarProvider>
+                            <RouterProvider router={routers} />
+                        </SideBarProvider>
+                    </QueryClientProvider>
+                </CountsProvider>
             </AuthProvider>
         </StrictMode>
     </StorageProvider>

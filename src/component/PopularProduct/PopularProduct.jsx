@@ -1,6 +1,6 @@
 import ProductItems from "@component/ProductItems/ProductItems";
 import styles from "./styles.module.scss";
-import MainLayout from "@component/Layout/Layout.jsx";
+
 
 function PopularProduct({ data }) {
     const { container, wrapContent } = styles;
@@ -12,9 +12,11 @@ function PopularProduct({ data }) {
                     {data.map((item, index) => {
                         return (
                             <ProductItems
-                                key={item.id || index} 
-                                src={item.src}
-                                prevSrc={item.prevSrc}
+                                key={item.id || index}
+                                product={item}
+                                itemId={item._id}
+                                src={item.fSrc}
+                                prevSrc={item.sSrc}
                                 name={item.name}
                                 price={item.price}
                             />

@@ -19,8 +19,9 @@ export function useCart(cart) {
     const [discountValue, setDiscountValue] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [cartItems, setCartItems] = useState([]);
 
-    // Initialize quantities from cart items
+    // Initialize quantities from cart items and set up cartItems state
     useEffect(() => {
         if (cart && cart.items) {
             setQuantities(
@@ -29,6 +30,7 @@ export function useCart(cart) {
                     return acc;
                 }, {})
             );
+            setCartItems(cart.items);
         }
     }, [cart]);
 
@@ -89,7 +91,7 @@ export function useCart(cart) {
             });
 
             // Update the local state to reflect the size change
-            // This assumes your cartItems structure has a 'size' property on each item
+            // Preserve price information when updating size
             setCartItems((prevItems) =>
                 prevItems.map((item) =>
                     item.product._id === productId
@@ -108,7 +110,6 @@ export function useCart(cart) {
         }
     };
 
- 
     // Change shipping method
     const changeShipping = (option) => {
         setShippingCost(shippingOptions[option]);
@@ -127,14 +128,28 @@ export function useCart(cart) {
         }
     };
 
-    // Calculate subtotal
-    const subtotal = cart.items
-        ? cart.items.reduce(
+    // Calculate subtotal using the item's sale price if available, otherwise fall back to product price
+    const subtotal = cartItems
+        ? cartItems.reduce(
               (sum, item) =>
                   sum +
-                  (quantities[item.product._id] || 0) * item.product.price,
+                  (quantities[item.product._id] || 0) * 
+                  (item.price || item.product.price),
               0
           )
+        : 0;
+
+    // Calculate total savings from sales
+    const totalSavings = cartItems
+        ? cartItems.reduce((sum, item) => {
+              if (!item.sale || item.sale <= 0) return sum;
+              
+              const originalPrice = item.originalPrice || item.product.price;
+              const salePrice = item.price || item.product.price;
+              const quantity = quantities[item.product._id] || 0;
+              
+              return sum + ((originalPrice - salePrice) * quantity);
+          }, 0)
         : 0;
 
     // Calculate total after discount and shipping
@@ -148,7 +163,7 @@ export function useCart(cart) {
     );
 
     return {
-        cartItems: cart.items || [],
+        cartItems: cartItems || [],
         quantities,
         updateQuantity,
         shippingCost,
@@ -161,6 +176,7 @@ export function useCart(cart) {
         error,
         setError,
         updateItemSize,
-        isUpdatingSize
+        isUpdatingSize,
+        totalSavings
     };
 }

@@ -319,7 +319,19 @@ function CartItemsList({
                                     </button>
                                 </div>
                                 <div className="d-flex justify-content-between align-items-center mt-2">
-                                    <h6>${item.product.price}</h6>
+                                    {item.sale > 0 ? (
+                                        <>
+                                            <h6 className="mb-0">${Number(item.price).toFixed(2)}</h6>
+                                            <small className="text-muted text-decoration-line-through ms-2">
+                                                ${Number(item.originalPrice || item.product.price).toFixed(2)}
+                                            </small>
+                                            <span className="badge bg-danger ms-2">
+                                                {item.sale}% OFF
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <h6 className="mb-0">${Number(item.price || item.product.price).toFixed(2)}</h6>
+                                    )}
                                 </div>
                             </div>
                         </div>

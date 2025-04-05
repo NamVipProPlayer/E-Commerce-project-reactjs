@@ -529,148 +529,148 @@ $transition-speed: 0.15s;
 }
 
 // Dark mode support
-@media (prefers-color-scheme: dark) {
-  $bg-dark: #111827;
-  $bg-dark-light: #1f2937;
-  $bg-dark-medium: #374151;
-  $border-dark: #374151;
-  $text-dark-primary: #f9fafb;
-  $text-dark-secondary: #e5e7eb;
-  $text-dark-tertiary: #9ca3af;
+// @media (prefers-color-scheme: dark) {
+//   $bg-dark: #111827;
+//   $bg-dark-light: #1f2937;
+//   $bg-dark-medium: #374151;
+//   $border-dark: #374151;
+//   $text-dark-primary: #f9fafb;
+//   $text-dark-secondary: #e5e7eb;
+//   $text-dark-tertiary: #9ca3af;
   
-  .modal {
-    background-color: $bg-dark;
-  }
+//   .modal {
+//     background-color: $bg-dark;
+//   }
   
-  .modalHeader {
-    border-color: $border-dark;
-  }
+//   .modalHeader {
+//     border-color: $border-dark;
+//   }
   
-  .modalTitle {
-    color: $text-dark-primary;
-  }
+//   .modalTitle {
+//     color: $text-dark-primary;
+//   }
   
-  .modalDescription {
-    color: $text-dark-tertiary;
-  }
+//   .modalDescription {
+//     color: $text-dark-tertiary;
+//   }
   
-  .closeButton {
-    color: $text-dark-tertiary;
+//   .closeButton {
+//     color: $text-dark-tertiary;
     
-    &:hover {
-      background-color: $bg-dark-light;
-      color: $text-dark-primary;
-    }
-  }
+//     &:hover {
+//       background-color: $bg-dark-light;
+//       color: $text-dark-primary;
+//     }
+//   }
   
-  .sectionTitle {
-    color: $text-dark-primary;
-    border-color: $border-dark;
-  }
+//   .sectionTitle {
+//     color: $text-dark-primary;
+//     border-color: $border-dark;
+//   }
   
-  .label {
-    color: $text-dark-secondary;
-  }
+//   .label {
+//     color: $text-dark-secondary;
+//   }
   
-  .input, .textarea, .select {
-    background-color: $bg-dark-light;
-    border-color: $border-dark;
-    color: $text-dark-primary;
+//   .input, .textarea, .select {
+//     background-color: $bg-dark-light;
+//     border-color: $border-dark;
+//     color: $text-dark-primary;
     
-    &:focus {
-      border-color: $accent-color;
-    }
+//     &:focus {
+//       border-color: $accent-color;
+//     }
     
-    &::placeholder {
-      color: $text-dark-tertiary;
-    }
-  }
+//     &::placeholder {
+//       color: $text-dark-tertiary;
+//     }
+//   }
   
-  .select {
-    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e5e7eb%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-  }
+//   .select {
+//     background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e5e7eb%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+//   }
   
-  .helpText {
-    color: $text-dark-tertiary;
-  }
+//   .helpText {
+//     color: $text-dark-tertiary;
+//   }
   
-  .errorText {
-    color: #f87171;
-  }
+//   .errorText {
+//     color: #f87171;
+//   }
   
-  .passwordToggle {
-    color: $text-dark-tertiary;
-  }
+//   .passwordToggle {
+//     color: $text-dark-tertiary;
+//   }
   
-  .passwordPlaceholder {
-    background-color: $bg-dark-light;
-    border-color: $border-dark;
+//   .passwordPlaceholder {
+//     background-color: $bg-dark-light;
+//     border-color: $border-dark;
     
-    span {
-      color: $text-dark-secondary;
-    }
+//     span {
+//       color: $text-dark-secondary;
+//     }
     
-    small {
-      color: $text-dark-tertiary;
-    }
-  }
+//     small {
+//       color: $text-dark-tertiary;
+//     }
+//   }
   
-  .securityNote {
-    background-color: $bg-dark-light;
-    border-color: $border-dark;
+//   .securityNote {
+//     background-color: $bg-dark-light;
+//     border-color: $border-dark;
     
-    .securityNoteContent {
-      h4 {
-        color: $text-dark-primary;
-      }
+//     .securityNoteContent {
+//       h4 {
+//         color: $text-dark-primary;
+//       }
       
-      p {
-        color: $text-dark-secondary;
-      }
-    }
-  }
+//       p {
+//         color: $text-dark-secondary;
+//       }
+//     }
+//   }
   
-  .metadataSection {
-    background-color: $bg-dark-light;
-    border-color: $border-dark;
-  }
+//   .metadataSection {
+//     background-color: $bg-dark-light;
+//     border-color: $border-dark;
+//   }
   
-  .metadataTitle {
-    color: $text-dark-primary;
-  }
+//   .metadataTitle {
+//     color: $text-dark-primary;
+//   }
   
-  .metadataLabel {
-    color: $text-dark-tertiary;
-  }
+//   .metadataLabel {
+//     color: $text-dark-tertiary;
+//   }
   
-  .metadataValue {
-    color: $text-dark-secondary;
-  }
+//   .metadataValue {
+//     color: $text-dark-secondary;
+//   }
   
-  .cancelButton {
-    background-color: $bg-dark-light;
-    border-color: $border-dark;
-    color: $text-dark-primary;
+//   .cancelButton {
+//     background-color: $bg-dark-light;
+//     border-color: $border-dark;
+//     color: $text-dark-primary;
     
-    &:hover:not(:disabled) {
-      background-color: $bg-dark-medium;
-    }
-  }
+//     &:hover:not(:disabled) {
+//       background-color: $bg-dark-medium;
+//     }
+//   }
   
-  .formActions, .formFooter {
-    border-color: $border-dark;
-  }
+//   .formActions, .formFooter {
+//     border-color: $border-dark;
+//   }
   
-  .formFooter {
-    color: $text-dark-tertiary;
-  }
+//   .formFooter {
+//     color: $text-dark-tertiary;
+//   }
   
-  .tag {
-    background-color: $bg-dark-light;
-    border-color: $border-dark;
-    color: $text-dark-secondary;
-  }
-}
+//   .tag {
+//     background-color: $bg-dark-light;
+//     border-color: $border-dark;
+//     color: $text-dark-secondary;
+//   }
+// }
 
 // Updated timestamp and user content
 .timestamp::after {

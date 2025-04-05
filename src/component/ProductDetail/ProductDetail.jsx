@@ -12,6 +12,7 @@ import wishlistService from "@apis/wishlistService.js";
 import { toast } from "react-toastify";
 import { AuthContext } from "@Contexts/AuthContext.jsx";
 import { SideBarContext } from "@Contexts/SideBarProvider.jsx";
+import { CountsContext } from "@Contexts/CountContext.jsx"; // Import CountsContext
 
 export default function ProductDetail() {
     const { id: shoeId } = useParams();
@@ -21,10 +22,20 @@ export default function ProductDetail() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedSize, setSelectedSize] = useState(null);
+    const [selectedColor, setSelectedColor] = useState(null);
     const [sizes, setSizes] = useState([]);
+    const [colors, setColors] = useState([]);
     const navigate = useNavigate();
     const { auth } = useContext(AuthContext);
     const { setIsOpen, setType } = useContext(SideBarContext);
+
+    // Get count update functions from CountsContext
+    const {
+        incrementCartCount,
+        incrementWishlistCount,
+        decrementWishlistCount,
+        fetchCounts
+    } = useContext(CountsContext);
 
     // Check if user is authenticated
     const isAuthenticated = !!auth?.token;
@@ -65,6 +76,15 @@ export default function ProductDetail() {
                     setSizes(sizeObjects);
                 }
 
+                if (productData?.colors && productData.colors.length > 0) {
+                    const colorObjects = productData.colors.map((color) => ({
+                        value: color,
+                        available: true
+                    }));
+                    setColors(colorObjects);
+                    setSelectedColor(colorObjects[0].value);
+                }
+
                 // If user is authenticated, check if product is in wishlist
                 if (isAuthenticated) {
                     try {
@@ -95,41 +115,98 @@ export default function ProductDetail() {
             redirectToLogin();
             return;
         }
-        if (!product || product.stock <= 0 || selectedSize === null) return;
+
+        if (!product || product.stock <= 0 || selectedSize === null) {
+            // Remove toast, use console error instead
+            console.error("Please select a size to continue");
+            return;
+        }
+
+        if (colors.length > 0 && selectedColor === null) {
+            // Remove toast, use console error instead
+            console.error("Please select a color to continue");
+            return;
+        }
+
         try {
+            // Calculate the final price with sale discount
+            const itemPrice = product.sale
+                ? parseFloat(
+                      (
+                          product.price -
+                          (product.price * product.sale) / 100
+                      ).toFixed(2)
+                  )
+                : product.price;
+
             const cartData = {
                 productId: shoeId,
                 size: selectedSize,
-                quantity
+                quantity,
+                color: selectedColor,
+                price: itemPrice,
+                originalPrice: product.price,
+                sale: product.sale || 0
             };
+
+            // First update the UI immediately (optimistic update)
+            incrementCartCount();
+
+            // Removed toast loading notification
+
+            // Then make the API call
             await cartService.addToCart(cartData);
-            toast.success("Product added to cart!");
-            console.log("Adding to cart:", cartData);
+
+            // Removed toast success notification
+
+            console.log("Added to cart successfully:", cartData);
         } catch (err) {
+            console.error("Cart error:", err);
             setError("Failed to add item to cart");
-            toast.error("Failed to add item to cart");
+            // Removed toast error notification
+
+            // If API call fails, refresh counts to ensure accuracy
+            fetchCounts();
         }
     };
+
     const handleFavorite = async () => {
         if (!isAuthenticated) {
             redirectToLogin();
             return;
         }
+
         try {
             if (favorite) {
-                // If already in wishlist, remove it
-                await wishlistService.removeFromWishlist(shoeId);
+                // First update UI (optimistic update)
                 setFavorite(false);
+                decrementWishlistCount();
+
+                // Then make API call
+                await wishlistService.removeFromWishlist(shoeId);
                 toast.success("Product removed from wishlist");
             } else {
-                // If not in wishlist, add it
-                await wishlistService.addToWishlist(shoeId);
+                // First update UI (optimistic update)
                 setFavorite(true);
+                incrementWishlistCount();
+
+                // Then make API call
+                await wishlistService.addToWishlist(shoeId);
                 toast.success("Product added to wishlist");
             }
         } catch (err) {
+            // If API call fails, revert the UI changes
+            setFavorite(!favorite);
+            if (favorite) {
+                incrementWishlistCount(); // Revert the count
+            } else {
+                decrementWishlistCount(); // Revert the count
+            }
+
             console.error("Failed to update wishlist:", err);
             toast.error("Failed to update wishlist");
+            // Refresh counts to ensure accuracy
+            fetchCounts();
         }
     };
 
@@ -178,12 +255,25 @@ export default function ProductDetail() {
     }
 
     const inStock = product.stock > 0;
+    const finalPrice = product.sale
+        ? (product.price - (product.price * product.sale) / 100).toFixed(2)
+        : product.price.toFixed(2);
 
     return (
         <Container className="py-5 mt-5 overflow-hiden">
             <Row className={styles.equalHeightRow}>
                 <Col md={6} className={styles.imageColumn}>
                     <div className={styles.imageWrapper}>
+                        {product.bestSeller && (
+                            <Badge
+                                bg="warning"
+                                text="danger"
+                                pill={2}
+                                className={styles.bestSellerBadge}
+                            >
+                                Best Seller
+                            </Badge>
+                        )}
                         <img
                             src={product.fSrc}
                             alt={`${product.name} front`}
@@ -200,9 +290,36 @@ export default function ProductDetail() {
                     <Card className={styles.productCard}>
                         <CardContent className={styles.cardContent}>
                             <h1 className="mb-3">{product.name}</h1>
-                            <h3 className="text-primary mb-4">
-                                ${product.price.toFixed(2)}
-                            </h3>
+
+                            <div className="d-flex align-items-center mb-2">
+                                <Badge bg="secondary" className="me-2">
+                                    {product.brand}
+                                </Badge>
+                                <Badge bg="secondary" text="light">
+                                    {product.category}
+                                </Badge>
+                            </div>
+
+                            <div className="mb-4">
+                                {product.sale ? (
+                                    <div className="d-flex align-items-center">
+                                        <h3 className="text-primary mb-0">
+                                            ${finalPrice}
+                                        </h3>
+                                        <span className="ms-2 text-secondary text-decoration-line-through">
+                                            ${product.price.toFixed(2)}
+                                        </span>
+                                        <Badge bg="danger" className="ms-2">
+                                            {product.sale}% OFF
+                                        </Badge>
+                                    </div>
+                                ) : (
+                                    <h3 className="text-primary">
+                                        ${finalPrice}
+                                    </h3>
+                                )}
+                            </div>
+
                             <div className="mb-4">
                                 <h5>Description:</h5>
                                 <ul>
@@ -210,16 +327,47 @@ export default function ProductDetail() {
                                 </ul>
                             </div>
 
-                            <SelectSize
-                                sizes={sizes}
-                                selectedSize={selectedSize}
-                                onSizeSelect={(size) =>
-                                    setSelectedSize(size.value)
-                                }
-                            />
+                            <div className="mb-4">
+                                <SelectSize
+                                    sizes={sizes}
+                                    selectedSize={selectedSize}
+                                    onSizeSelect={(size) =>
+                                        setSelectedSize(size.value)
+                                    }
+                                />
+                            </div>
 
-                            <div className="d-flex align-items-center mb-4">
-                                <div className="me-3">
+                            {colors.length > 0 && (
+                                <div className="mb-4">
+                                    <h5>Color:</h5>
+                                    <div className="d-flex flex-wrap gap-2">
+                                        {colors.map((color) => (
+                                            <div
+                                                key={color.value}
+                                                className={classNames(
+                                                    styles.colorOption,
+                                                    {
+                                                        [styles.selectedColor]:
+                                                            selectedColor ===
+                                                            color.value
+                                                    }
+                                                )}
+                                                style={{
+                                                    backgroundColor: color.value
+                                                }}
+                                                onClick={() =>
+                                                    setSelectedColor(
+                                                        color.value
+                                                    )
+                                                }
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className="d-flex align-items-center flex-wrap mb-4">
+                                <div className="me-3 mb-2">
                                     <label
                                         htmlFor="quantity"
                                         className="form-label"
@@ -266,23 +414,27 @@ export default function ProductDetail() {
                                         +
                                     </button>
                                 </div>
-                                <div className="ms-3">
-                                    {inStock ? (
-                                        <Badge bg="success">
-                                            In Stock ({product.stock})
-                                        </Badge>
-                                    ) : (
-                                        <Badge bg="danger">Out of Stock</Badge>
-                                    )}
-                                </div>
                             </div>
-
+                            <div className="ms-3">
+                                {inStock ? (
+                                    <Badge bg="success">
+                                        In Stock ({product.stock})
+                                    </Badge>
+                                ) : (
+                                    <Badge bg="danger">Out of Stock</Badge>
+                                )}
+                            </div>
                             <div className="d-flex gap-3 mt-4 flex-column justify-center align-items-center">
                                 <Button
                                     variant="outline-dark"
-                                    size="lg"
+                                    size="small"
                                     onClick={handleAddToCart}
-                                    disabled={!inStock || selectedSize === null}
+                                    disabled={
+                                        !inStock ||
+                                        selectedSize === null ||
+                                        (colors.length > 0 &&
+                                            selectedColor === null)
+                                    }
                                     className="px-5 w-100 rounded-pill"
                                 >
                                     Add to Cart
@@ -291,7 +443,7 @@ export default function ProductDetail() {
                                     variant={
                                         favorite ? "warning" : "outline-warning"
                                     }
-                                    size="lg"
+                                    size="small"
                                     onClick={handleFavorite}
                                     className="px-5 w-100 rounded-pill"
                                 >

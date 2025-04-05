@@ -32,7 +32,7 @@ const paymentService = {
             //https://vnpaynammapvipproplayer.onrender.com
             //http://localhost:8888
             const response = await axios.post(
-                "https://vnpaynammapvipproplayer.onrender.com/order/create_payment_url",
+                "http://localhost:8888/order/create_payment_url",
                 requestData
             );
 

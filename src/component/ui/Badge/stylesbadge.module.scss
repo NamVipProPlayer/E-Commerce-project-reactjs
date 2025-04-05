@@ -39,11 +39,11 @@
 }
 
 .destructive {
-  background-color: var.$destructiveColor;
+  background-color: var.$accentColor;
   color: var.$destructiveForeground;
 
   &:hover {
-    background-color: var.$destructiveColor;
+   cursor: pointer;
     opacity: 80%;
   }
 }
@@ -51,4 +51,5 @@
 .outline {
   color: var.$lineBorder;
   border-color: var.$lineBorder;
+  
 }

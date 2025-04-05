@@ -43,7 +43,13 @@ const productSchema = z.object({
         )
         .nonempty("At least one color is required"),
     fSrc: z.string().url("Must be a valid URL"),
-    sSrc: z.string().url("Must be a valid URL")
+    sSrc: z.string().url("Must be a valid URL"),
+    sale: z
+        .number()
+        .min(0, "Sale must be non-negative")
+        .max(100, "Sale cannot exceed 100%")
+        .optional(),
+    bestSeller: z.boolean().optional()
 });
 
 export function ProductFormUpdate({
@@ -96,7 +102,9 @@ export function ProductFormUpdate({
             sizes: [],
             colors: [],
             fSrc: "",
-            sSrc: ""
+            sSrc: "",
+            sale: 0, // Default sale to 0%
+            bestSeller: false // Default bestSeller to false
         }
     });
 
@@ -119,7 +127,9 @@ export function ProductFormUpdate({
                 sizes: formatSizesForForm(product.sizes),
                 colors: formatColorsForForm(product.colors),
                 fSrc: product.fSrc || "",
-                sSrc: product.sSrc || ""
+                sSrc: product.sSrc || "",
+                sale: typeof product.sale === "number" ? product.sale : 0,
+                bestSeller: !!product.bestSeller
             });
         }
     }, [product, form, open]);
@@ -146,6 +156,8 @@ export function ProductFormUpdate({
                 ...formData,
                 sizes: formatInput(formData.sizes).map((size) => Number(size)),
                 colors: formatInput(formData.colors),
+                sale: formData.sale || 0, // Ensure sale is at least 0
+                bestSeller: !!formData.bestSeller, // Ensure bestSeller is a boolean
                 updatedAt: CURRENT_DATETIME,
                 updatedBy: CURRENT_USER
             };
@@ -267,7 +279,7 @@ export function ProductFormUpdate({
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             <DialogOverlay className={styles.overlay} />
             <DialogContent className={styles.modal}>
                 <div className={styles.modalHeader}>
@@ -485,6 +497,66 @@ export function ProductFormUpdate({
                                         <span className={styles.errorText}>
                                             {
                                                 form.formState.errors.stock
+                                                    .message
+                                            }
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className={styles.formRow}>
+                                <div className={styles.formGroup}>
+                                    <label
+                                        className={styles.label}
+                                        htmlFor="sale"
+                                    >
+                                        Sale Discount (%)
+                                    </label>
+                                    <input
+                                        id="sale"
+                                        type="number"
+                                        min="0"
+                                        max="100"
+                                        step="1"
+                                        {...form.register("sale", {
+                                            valueAsNumber: true
+                                        })}
+                                        className={`${styles.input} ${
+                                            form.formState.errors.sale
+                                                ? styles.errorInput
+                                                : ""
+                                        }`}
+                                        placeholder="0"
+                                    />
+                                    {form.formState.errors.sale && (
+                                        <span className={styles.errorText}>
+                                            {form.formState.errors.sale.message}
+                                        </span>
+                                    )}
+                                    <span className={styles.helpText}>
+                                        Enter discount percentage (0-100)
+                                    </span>
+                                </div>
+
+                                <div className={styles.formGroup}>
+                                    <div className={styles.checkboxContainer}>
+                                        <input
+                                            id="bestSeller"
+                                            type="checkbox"
+                                            {...form.register("bestSeller")}
+                                            className={styles.checkbox}
+                                        />
+                                        <label
+                                            className={styles.checkboxLabel}
+                                            htmlFor="bestSeller"
+                                        >
+                                            Mark as Best Seller
+                                        </label>
+                                    </div>
+                                    {form.formState.errors.bestSeller && (
+                                        <span className={styles.errorText}>
+                                            {
+                                                form.formState.errors.bestSeller
                                                     .message
                                             }
                                         </span>

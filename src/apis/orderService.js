@@ -20,9 +20,10 @@ const orderService = {
      * @param {Object} params - Query parameters for filtering, pagination
      * @returns {Promise} - API response with orders list
      */
-    getAllOrders: async (params = {}) => {
+    getAllOrders: async (queryString = "") => {
         try {
-            const response = await axiosClient.get("/api/order", { params });
+            // const response = await axiosClient.get("/api/order", { params });
+            const response = await axiosClient.get(`/api/order?${queryString}`);
             return response.data;
         } catch (error) {
             throw error.response?.data || error.message;
@@ -42,6 +43,23 @@ const orderService = {
         } catch (error) {
             console.error("Error fetching orders:", error);
             throw error.response?.data || error.message;
+        }
+    },
+
+    /**
+     * Get current user's orders with query string
+     * @param {String} queryString - Query string for filtering, pagination
+     * @returns {Promise} - API response with user's orders
+     */
+    getUserOrders: async (queryString = "") => {
+        try {
+            const response = await axiosClient.get(
+                `api/order/myorders?${queryString}`
+            );
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching user orders:", error);
+            throw error;
         }
     },
 

@@ -16,7 +16,7 @@
 .imageWrapper {
     position: relative; // For handling both images
     height: 100%;
-    background-color: #f8f9fa;
+    background-color: #F5F5F5;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -29,6 +29,19 @@
             opacity: 1;
         }
     }
+}
+
+// Best seller badge styles
+.bestSellerBadge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .productImage,
@@ -52,7 +65,7 @@
     display: flex;
     flex-direction: column;
     border-radius: 12px;
-    background: white;
+    background: rgb(255, 255, 255);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -121,6 +134,29 @@
             // }
         }
     }
+}
+
+// Color selection styles
+.colorOption {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #f1f1f1;
+    transition: all 0.2s ease;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    
+    &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.selectedColor {
+    border: 2px solid #000;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
 .bottomSection {
@@ -193,6 +229,42 @@
     }
 }
 
+// Quantity controls
+.quantityControls {
+  display: flex;
+  align-items: center;
+  max-width: 80px; 
+  margin-right: 1rem;
+}
+
+.smallButton {
+  min-width: 30px;
+  height: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.quantityInput {
+  width: 50px;
+  text-align: center;
+  margin: 0 5px;
+  padding: 0.25rem 0.5rem;
+  height: 30px;
+
+  /* Remove number input arrows */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* Firefox */
+  -moz-appearance: textfield;
+}
+
 // Form Controls
 .form-control {
     border: 2px solid #e0e0e0;
@@ -256,23 +328,34 @@
             font-size: 1.5rem;
         }
     }
+    
+    .colorOption {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .bestSellerBadge {
+        font-size: 12px;
+        padding: 6px 12px;
+       
+    }
 }
 
 // Dark mode support
 @media (prefers-color-scheme: dark) {
-    .productCard {
-        background: #2c3e50;
+    // .productCard {
+    //     background: #2c3e50;
         
-        .cardContent {
-            h1, h5 {
-                color: #ecf0f1;
-            }
+    //     .cardContent {
+    //         h1, h5 {
+    //             color: #ecf0f1;
+    //         }
 
-            ul li {
-                color: #bdc3c7;
-            }
-        }
-    }
+    //         ul li {
+    //             color: #bdc3c7;
+    //         }
+    //     }
+    // }
 
     .form-control {
         background: #34495e;
@@ -283,39 +366,12 @@
             background: #2c3e50;
         }
     }
-}
-/* Add these styles to your existing ProductDetail.module.scss file */
-
-.quantityControls {
-  display: flex;
-  align-items: center;
-  max-width: 120px;
-}
-
-.smallButton {
-  min-width: 30px;
-  height: 30px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
-.quantityInput {
-  width: 50px;
-  text-align: center;
-  margin: 0 5px;
-  padding: 0.25rem 0.5rem;
-  height: 30px;
-
-  /* Remove number input arrows */
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  
-  /* Firefox */
-  -moz-appearance: textfield;
+    
+    .colorOption {
+        border-color: #2c3e50;
+    }
+    
+    .selectedColor {
+        border-color: #3498db;
+    }
 }

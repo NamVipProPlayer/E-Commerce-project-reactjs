@@ -5,20 +5,22 @@ import styles from "./stylesOurPage.module.scss";
 import Sidebarss from "@component/SideBarOurPage/SideBar";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom"; // Added import for useLocation
+import { useLocation } from "react-router-dom";
 import MainLayout from "@component/Layout/Layout";
 
 export default function OurPage() {
-    const location = useLocation(); // Get location object for accessing state
+    const location = useLocation();
     const [currentPage, setCurrentPage] = useState(1);
 
-    // Initialize filters with category from navigation state if available
+    // Initialize filters with both category and onSale from navigation state
     const [filters, setFilters] = useState(() => {
         const categoryFromState = location.state?.category;
+        const onSaleFromState = location.state?.onSale;
         return {
             category: categoryFromState ? [categoryFromState] : [],
             price: null,
-            colorSearch: ""
+            colorSearch: "",
+            onSale: onSaleFromState || false
         };
     });
 
@@ -44,15 +46,19 @@ export default function OurPage() {
         staleTime: 5 * 60 * 1000
     });
 
-    // Handle navigation state changes
+    // Handle navigation state changes for both category and onSale
     useEffect(() => {
         const categoryFromState = location.state?.category;
-        if (categoryFromState) {
+        const onSaleFromState = location.state?.onSale;
+
+        if (categoryFromState || onSaleFromState) {
             setFilters((prevFilters) => ({
                 ...prevFilters,
-                category: [categoryFromState]
+                category: categoryFromState
+                    ? [categoryFromState]
+                    : prevFilters.category,
+                onSale: onSaleFromState || prevFilters.onSale
             }));
-            // Reset to first page when category changes
             setCurrentPage(1);
         }
     }, [location.state]);
@@ -72,6 +78,7 @@ export default function OurPage() {
             ) {
                 return false;
             }
+
             // Color filter (search)
             if (
                 filters.colorSearch.trim() !== "" &&
@@ -83,6 +90,12 @@ export default function OurPage() {
             ) {
                 return false;
             }
+
+            // Sale filter - add this condition
+            if (filters.onSale && (!product.sale || product.sale <= 0)) {
+                return false;
+            }
+
             return true;
         })
         // Sort by price
@@ -124,10 +137,26 @@ export default function OurPage() {
                     initialCategory={location.state?.category}
                 />
                 <div className={styles.mainContent}>
+                    {/* Show sale filter in active filters if enabled */}
                     {filters.category.length > 0 && (
                         <div className={styles.activeFilters}>
                             <h2>
                                 {filters.category[0]} Shoes
+                                <span className={styles.resultCount}>
+                                    ({filteredProducts.length} results)
+                                </span>
+                            </h2>
+                            {filters.onSale && (
+                                <span className={styles.saleTag}>On Sale</span>
+                            )}
+                        </div>
+                    )}
+
+                    {/* If no category filter but sale filter is active */}
+                    {filters.category.length === 0 && filters.onSale && (
+                        <div className={styles.activeFilters}>
+                            <h2>
+                                Sale Items
                                 <span className={styles.resultCount}>
                                     ({filteredProducts.length} results)
                                 </span>
@@ -171,8 +200,6 @@ export default function OurPage() {
                             </Button>
                         </div>
                     )}
-
-                   
                 </div>
             </div>
         </MainLayout>

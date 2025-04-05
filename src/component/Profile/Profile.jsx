@@ -229,7 +229,8 @@ const Profile = () => {
                                     <Mail size={16} />
                                     Email
                                 </label>
-                                <input
+                                <input 
+                                    disabled
                                     type="email"
                                     id="email"
                                     name="email"

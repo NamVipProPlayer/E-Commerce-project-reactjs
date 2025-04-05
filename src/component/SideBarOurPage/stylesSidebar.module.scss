@@ -79,15 +79,142 @@
 
 .backButton {
     position: relative;
-
     cursor: pointer;
     display: flex;
-    gap: 5px;
-    transition: all 0.3 ease;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: var.$grey;
+    font-size: 0.95rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+
     &:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+        color: var.$secondBlack;
+
         .spanContent {
-          border-bottom: 2px solid #888;
+            border-bottom: 1px solid var.$secondBlack;
         }
+    }
+
+    .spanContent {
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s ease;
+    }
+}
+
+/* Sale Filter Styles */
+.filterSection {
+    margin-bottom: 2rem;
+    position: relative;
+
+    h3 {
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 1.2rem;
+        color: var.$secondBlack;
+    }
+}
+
+/* Remove special styling for sale section */
+.filterSection:has(+ .backButton) {
+    /* Reset all special styling */
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    border-left: none;
+
+    h3 {
+        color: var.$secondBlack; /* Use standard color */
+        margin-top: 0;
+
+        &:before {
+            content: none; /* Remove the accent bar */
+        }
+    }
+
+    &::after {
+        content: none; /* Remove emoji */
+    }
+}
+
+.checkboxLabel {
+    display: flex;
+    padding: 0.5rem;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var.$grey;
+    transition: all 0.2s ease;
+
+    &:hover {
+        color: var.$secondBlack;
+    }
+
+    /* Reset sale filter checkbox specifically */
+    .filterSection:has(+ .backButton) & {
+        font-weight: normal;
+
+        input[type="checkbox"] {
+            &:checked {
+                background-color: var.$secondBlack; /* Standard color */
+                border-color: var.$secondBlack;
+            }
+
+            &:focus {
+                box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1); /* Standard focus style */
+            }
+        }
+
+        &:hover {
+            color: var.$secondBlack; /* Standard hover color */
+        }
+    }
+}
+
+/* Standard styling for checkbox inputs */
+input[type="checkbox"] {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: white;
+   border: 1px solid var.$lineBorder;
+    box-shadow: none;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:checked {
+        background-color: var.$secondBlack;
+        border-color: var.$secondBlack;
+
+        &:after {
+            content: "";
+            display: block;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            position: relative;
+            top: -1px;
+        }
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
     }
 }
 

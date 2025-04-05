@@ -6,6 +6,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { useCart } from "@Hooks/useProduct.js";
 import CartItemsList from "./CartIttemsList.jsx";
 import CartSummary from "./CartSummary.jsx";
+import { Spinner } from "react-bootstrap";
 
 function ShoppingCart({ cart, onDelete }) {
     // Use your existing cart hook
@@ -21,24 +22,10 @@ function ShoppingCart({ cart, onDelete }) {
         total,
         isLoading,
         error,
-        setError
+        setError,
+        updateItemSize
     } = useCart(cart); // Hook to handle calculations
 
-    {
-        error && (
-            <div
-                className="alert alert-danger alert-dismissible fade show"
-                role="alert"
-            >
-                {error}
-                <button
-                    type="button"
-                    className="btn-close"
-                    onClick={() => setError(null)}
-                ></button>
-            </div>
-        );
-    }
     return (
         <section className={styles.shoppingCart}>
             {error && (
@@ -78,9 +65,21 @@ function ShoppingCart({ cart, onDelete }) {
                                             styles.productSection
                                         )}
                                     >
-                                        <h1>
-                                            Shopping {<HiOutlineShoppingBag />}
-                                        </h1>
+                                        <div className="d-flex justify-content-between align-items-center">
+                                            <h1>
+                                                Shopping {<HiOutlineShoppingBag />}
+                                            </h1>
+                                            {isLoading && (
+                                                <Spinner 
+                                                    animation="border" 
+                                                    role="status" 
+                                                    size="sm" 
+                                                    className="me-2"
+                                                >
+                                                    <span className="visually-hidden">Loading...</span>
+                                                </Spinner>
+                                            )}
+                                        </div>
                                         <hr />
 
                                         {/* Scrollable Items Container with CartItemsList component */}
@@ -91,6 +90,7 @@ function ShoppingCart({ cart, onDelete }) {
                                                 updateQuantity={updateQuantity}
                                                 onDelete={onDelete}
                                                 isLoading={isLoading}
+                                                updateItemSize={updateItemSize}
                                             />
                                         </div>
                                     </div>

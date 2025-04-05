@@ -22,7 +22,16 @@ import userService from "@/apis/userService.js";
 import shoesProductService from "@/apis/shoesProductService.js";
 import { StorageContext } from "@Contexts/StorageProvider";
 import { getCurrentFormattedDateTime } from "@component/utils/dateTimeUtils";
-export function DataTable({ type, columns, searchField, onAdd, onUpdate }) {
+
+export function DataTable({
+    type,
+    columns,
+    searchField,
+    onAdd,
+    onUpdate,
+    onView, // Add this if needed
+    data: propData // Add this to accept data from parent
+}) {
     const [searchQuery, setSearchQuery] = useState("");
     const [showConfirmDelete, setShowConfirmDelete] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
@@ -33,12 +42,11 @@ export function DataTable({ type, columns, searchField, onAdd, onUpdate }) {
     });
     const tableContainerRef = useRef(null);
     const queryClient = useQueryClient();
-    const {userInfo} = useContext(StorageContext);
-   
+    const { userInfo } = useContext(StorageContext);
 
     // Current date/time and user info
-    const currentDateTime = getCurrentFormattedDateTime(); 
-    const currentUser = userInfo? userInfo.name : "Undefine";
+    const currentDateTime = getCurrentFormattedDateTime();
+    const currentUser = userInfo ? userInfo.name : "Undefine";
 
     // Scroll to top of table when page changes
     useEffect(() => {
@@ -47,16 +55,20 @@ export function DataTable({ type, columns, searchField, onAdd, onUpdate }) {
         }
     }, [currentPage]);
 
-    // Data fetching with React Query
+    // Use provided data or fetch with React Query
+    const useProvidedData = Array.isArray(propData);
+
+    // Data fetching with React Query - only if data prop is not provided
     const {
-        data = [],
-        isLoading,
-        isError,
-        error,
+        data: fetchedData = [],
+        isLoading: isFetchLoading,
+        isError: isFetchError,
+        error: fetchError,
         refetch
     } = useQuery({
         queryKey: [type],
         queryFn: async () => {
+            if (useProvidedData) return []; // Skip API call if data was provided
             try {
                 if (type === "users") return await userService.getUsers();
                 if (type === "shoes")
@@ -68,8 +80,15 @@ export function DataTable({ type, columns, searchField, onAdd, onUpdate }) {
                 throw error;
             }
         },
-        staleTime: 60000 // 1 minute before re-fetch
+        staleTime: 60000, // 1 minute before re-fetch
+        enabled: !useProvidedData // Only run query if data wasn't provided
     });
+
+    // Use either provided data or fetched data
+    const data = useProvidedData ? propData : fetchedData;
+    const isLoading = useProvidedData ? false : isFetchLoading;
+    const isError = useProvidedData ? false : isFetchError;
+    const error = useProvidedData ? null : fetchError;
 
     // Delete mutation with better error handling
     const deleteMutation = useMutation({
@@ -101,7 +120,9 @@ export function DataTable({ type, columns, searchField, onAdd, onUpdate }) {
 
     // Apply sorting and filtering
     const filteredData = useMemo(() => {
-        let filteredItems = [...data];
+        // Ensure data is an array before attempting to spread it
+        const safeData = Array.isArray(data) ? data : [];
+        let filteredItems = [...safeData];
 
         // Apply search filtering
         if (searchQuery) {

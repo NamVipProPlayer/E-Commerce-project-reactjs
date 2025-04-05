@@ -1,9 +1,10 @@
 
 @use "@styles/variables.module.scss" as var;
 .customCheckbox {
-  width: 16px;
-  height: 16px;
-  border: 2px solid var.$primary;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var.$lineBorder;
+  background-color: #fff;
   border-radius: 4px;
   display: flex;
   align-items: center;

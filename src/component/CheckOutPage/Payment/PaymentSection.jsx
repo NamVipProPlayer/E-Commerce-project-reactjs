@@ -208,7 +208,7 @@ const PaymentSection = ({
                 totalAmount: subtotal,
                 shipping: qualifiesForFreeShipping ? 0 : shippingCost,
                 couponCode: promoCode || null,
-                discount: subtotal - total,
+                discount: (subtotal + shippingCost) - adjustedTotal,
                 finalAmount: adjustedTotal, // Use the adjusted total
                 paymentStatus: "Pending",
                 orderStatus: "Processing",

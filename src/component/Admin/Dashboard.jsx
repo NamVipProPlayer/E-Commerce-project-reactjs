@@ -2,6 +2,8 @@ import { useContext, useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import styles from "./stylesAdmin.module.scss";
 import {
+    Menu,
+    X,
     Settings,
     LogOut,
     Package,
@@ -38,7 +40,6 @@ import { toast } from "react-toastify";
 import { getCurrentFormattedDateTime } from "@component/utils/dateTimeUtils";
 import { StorageContext } from "@Contexts/StorageProvider.jsx";
 import { OrderUpdateForm } from "@component/Admin/OrderUpdateForm";
-//import { OrderDetailModal } from "./OrderDetailModal.jsx"; // You'll need to create this component
 
 // Global constants for application
 const CURRENT_DATETIME = getCurrentFormattedDateTime();
@@ -61,6 +62,15 @@ export default function Dashboard() {
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [orderDetailOpen, setOrderDetailOpen] = useState(false);
     const [orderUpdateOpen, setOrderUpdateOpen] = useState(false);
+
+    // Pagination state for orders
+    const [orderPage, setOrderPage] = useState(1);
+    const [orderPageSize, setOrderPageSize] = useState(10);
+    const [orderTotalPages, setOrderTotalPages] = useState(1);
+    const [orderTotalItems, setOrderTotalItems] = useState(0);
+
+    // Sidebar visibility state
+    const [sidebarVisible, setSidebarVisible] = useState(true);
 
     // Current user
     const CURRENT_USER = userInfo ? userInfo.name : "NamProPlayer20";
@@ -139,53 +149,77 @@ export default function Dashboard() {
         retry: 1
     });
 
-    // Orders query - FIXED to handle different response formats
+    // Orders query with pagination
     const {
-        data: orders = [],
+        data: orderData = {
+            orders: [],
+            totalPages: 1,
+            currentPage: 1,
+            total: 0
+        },
         isLoading: ordersLoading,
-        error: ordersError
+        error: ordersError,
+        refetch: refetchOrders
     } = useQuery({
-        queryKey: ["orders"],
+        queryKey: ["orders", orderPage, orderPageSize],
         queryFn: async () => {
             try {
-                const response = await orderService.getAllOrders();
+                // Build query string with pagination parameters
+                const params = new URLSearchParams({
+                    page: orderPage,
+                    limit: orderPageSize
+                });
 
-                // Check if response is an array
-                if (Array.isArray(response)) {
-                    return response.map(formatOrderData);
-                }
-                // Check if response has a data property that's an array
-                else if (response && Array.isArray(response.data)) {
-                    return response.data.map(formatOrderData);
-                }
-                // Check if response is an object with orders
-                else if (response && Array.isArray(response.orders)) {
-                    return response.orders.map(formatOrderData);
-                }
-                // If response is an object but not in expected format
-                else if (response && typeof response === "object") {
+                const response = await orderService.getAllOrders(
+                    params.toString()
+                );
+
+                // Process the response
+                if (response && response.success) {
+                    const formattedOrders = Array.isArray(response.orders)
+                        ? response.orders.map(formatOrderData)
+                        : [];
+
+                    // Store pagination metadata
+                    setOrderTotalPages(response.totalPages || 1);
+                    setOrderTotalItems(response.total || 0);
+
+                    return {
+                        orders: formattedOrders,
+                        totalPages: response.totalPages || 1,
+                        currentPage: response.currentPage || 1,
+                        total: response.total || 0
+                    };
+                } else if (Array.isArray(response)) {
+                    // Handle old API format (returns array directly)
+                    return {
+                        orders: response.map(formatOrderData),
+                        totalPages: 1,
+                        currentPage: 1,
+                        total: response.length
+                    };
+                } else {
+                    // Handle unexpected response format
                     console.warn("Unexpected order response format:", response);
-                    // Try to extract any array from the response
-                    const possibleArrays = Object.values(response).filter(
-                        Array.isArray
-                    );
-                    if (possibleArrays.length > 0) {
-                        return possibleArrays[0].map(formatOrderData);
-                    }
+                    return {
+                        orders: [],
+                        totalPages: 1,
+                        currentPage: 1,
+                        total: 0
+                    };
                 }
-
-                // If we can't process the response, return empty array
-                console.error("Couldn't process order response:", response);
-                return [];
             } catch (error) {
                 console.error("Error fetching orders:", error);
                 toast.error("Failed to load orders data");
-                return [];
+                return { orders: [], totalPages: 1, currentPage: 1, total: 0 };
             }
         },
         enabled: !!auth?.token,
         retry: 1
     });
+
+    // Extract orders array from response
+    const orders = orderData.orders || [];
 
     // Helper function to format order data consistently
     const formatOrderData = (order) => ({
@@ -482,17 +516,6 @@ export default function Dashboard() {
         setOrderUpdateOpen(true);
     };
 
-    // const handleSubmitOrderUpdate = (data) => {
-    //     if (selectedOrder) {
-    //         updateOrderMutation.mutate({
-    //             id: selectedOrder._id,
-    //             data: {
-    //                 ...selectedOrder,
-    //                 ...data
-    //             }
-    //         });
-    //     }
-    // };
     const handleSubmitOrderUpdate = (orderId, formattedData) => {
         console.log("Submitting order update:", orderId, formattedData);
 
@@ -524,6 +547,7 @@ export default function Dashboard() {
             data: dataWithMetadata
         });
     };
+
     // Logout handler
     const handleLogout = () => {
         localStorage.removeItem("authToken");
@@ -558,11 +582,37 @@ export default function Dashboard() {
         return id.substring(id.length - 8).toUpperCase();
     };
 
+    // Sidebar toggle function
+    const toggleSidebar = () => {
+        setSidebarVisible((prev) => !prev);
+    };
+
     return (
         <div className={styles.dashboardContainer}>
             <Tabs defaultValue="products" className={styles.tabs}>
-                <div className={styles.layout}>
-                    <div className={styles.sidebar}>
+                <div
+                    className={`${styles.layout} ${
+                        sidebarVisible ? "" : styles.sidebarCollapsed
+                    }`}
+                >
+                    {/* Sidebar toggle button for mobile */}
+                    <button
+                        className={styles.sidebarToggle}
+                        onClick={toggleSidebar}
+                        aria-label={
+                            sidebarVisible ? "Hide sidebar" : "Show sidebar"
+                        }
+                    >
+                        {sidebarVisible ? <X size={20} /> : <Menu size={20} />}
+                    </button>
+
+                    {/* Sidebar with conditional visibility class */}
+                    <div
+                        className={`${styles.sidebar} ${
+                            sidebarVisible ? "" : styles.hidden
+                        }`}
+                    >
+                        {/* Existing sidebar content */}
                         <div className={styles.sidebarHeader}>
                             <div className={styles.userInfo}>
                                 <h2>Admin: </h2>
@@ -591,9 +641,22 @@ export default function Dashboard() {
                         </TabsList>
                     </div>
 
+                    {/* Main content */}
                     <div className={styles.mainContent}>
+                        {/* Your existing header */}
                         <header className={styles.header}>
-                            <h1>Dashboard</h1>
+                            {/* Add toggle button to header for desktop */}
+                            <div className={styles.headerLeft}>
+                                <button
+                                    className={styles.desktopSidebarToggle}
+                                    onClick={toggleSidebar}
+                                >
+                                    <Menu size={18} />
+                                </button>
+                                <h1>Dashboard</h1>
+                            </div>
+
+                            {/* Existing actions */}
                             <div className={styles.actions}>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
@@ -622,6 +685,7 @@ export default function Dashboard() {
                             </div>
                         </header>
 
+                        {/* Existing main content */}
                         <main className={styles.content}>
                             <TabsContent value="products">
                                 <DataTable
@@ -710,10 +774,65 @@ export default function Dashboard() {
                                 />
                             </TabsContent>
 
-                            {/* Orders TabsContent with updated schema */}
                             <TabsContent value="orders">
+                                {/* First, create a simple metrics row showing order stats */}
+                                <div className={styles.orderMetricsRow}>
+                                    <div className={styles.metricCard}>
+                                        <span className={styles.metricValue}>
+                                            {orderTotalItems}
+                                        </span>
+                                        <span className={styles.metricLabel}>
+                                            Total Orders
+                                        </span>
+                                    </div>
+                                    <div className={styles.metricCard}>
+                                        <span className={styles.metricValue}>
+                                            {
+                                                orders.filter(
+                                                    (o) =>
+                                                        o.orderStatus ===
+                                                        "Processing"
+                                                ).length
+                                            }
+                                        </span>
+                                        <span className={styles.metricLabel}>
+                                            Processing
+                                        </span>
+                                    </div>
+                                    <div className={styles.metricCard}>
+                                        <span className={styles.metricValue}>
+                                            {
+                                                orders.filter(
+                                                    (o) =>
+                                                        o.orderStatus ===
+                                                        "Shipped"
+                                                ).length
+                                            }
+                                        </span>
+                                        <span className={styles.metricLabel}>
+                                            Shipped
+                                        </span>
+                                    </div>
+                                    <div className={styles.metricCard}>
+                                        <span className={styles.metricValue}>
+                                            {
+                                                orders.filter(
+                                                    (o) =>
+                                                        o.orderStatus ===
+                                                        "Delivered"
+                                                ).length
+                                            }
+                                        </span>
+                                        <span className={styles.metricLabel}>
+                                            Delivered
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* Use the DataTable with orders array */}
                                 <DataTable
                                     type="orders"
+                                    data={orders} // Pass the orders array directly
                                     columns={[
                                         {
                                             header: "Order ID",
@@ -900,6 +1019,82 @@ export default function Dashboard() {
                                     onView={handleViewOrder}
                                     onUpdate={handleUpdateOrder}
                                 />
+
+                                {/* Add pagination controls */}
+                                <div className={styles.paginationContainer}>
+                                    <div className={styles.paginationInfo}>
+                                        Showing {orders.length} of{" "}
+                                        {orderTotalItems} orders
+                                    </div>
+                                    <div className={styles.paginationControls}>
+                                        <button
+                                            onClick={() => setOrderPage(1)}
+                                            disabled={orderPage === 1}
+                                            className={styles.paginationButton}
+                                        >
+                                            First
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                setOrderPage((p) =>
+                                                    Math.max(1, p - 1)
+                                                )
+                                            }
+                                            disabled={orderPage === 1}
+                                            className={styles.paginationButton}
+                                        >
+                                            Previous
+                                        </button>
+                                        <span className={styles.pageIndicator}>
+                                            Page {orderPage} of{" "}
+                                            {orderTotalPages}
+                                        </span>
+                                        <button
+                                            onClick={() =>
+                                                setOrderPage((p) =>
+                                                    p < orderTotalPages
+                                                        ? p + 1
+                                                        : p
+                                                )
+                                            }
+                                            disabled={
+                                                orderPage >= orderTotalPages
+                                            }
+                                            className={styles.paginationButton}
+                                        >
+                                            Next
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                setOrderPage(orderTotalPages)
+                                            }
+                                            disabled={
+                                                orderPage === orderTotalPages
+                                            }
+                                            className={styles.paginationButton}
+                                        >
+                                            Last
+                                        </button>
+                                    </div>
+                                    <div className={styles.pageSizeSelector}>
+                                        <label>Show per page:</label>
+                                        <select
+                                            value={orderPageSize}
+                                            onChange={(e) => {
+                                                setOrderPageSize(
+                                                    Number(e.target.value)
+                                                );
+                                                setOrderPage(1); // Reset to first page when changing page size
+                                            }}
+                                            className={styles.pageSizeSelect}
+                                        >
+                                            <option value={5}>5</option>
+                                            <option value={10}>10</option>
+                                            <option value={20}>20</option>
+                                            <option value={50}>50</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </TabsContent>
                         </main>
                     </div>
@@ -949,19 +1144,6 @@ export default function Dashboard() {
                 isSubmitting={updateUserMutation.isPending}
                 userData={selectedUser}
             />
-
-            {/* Add placeholder for Order Detail Modal */}
-            {/* {selectedOrder && (
-                <OrderDetailModal
-                    open={orderDetailOpen}
-                    onOpenChange={setOrderDetailOpen}
-                    order={selectedOrder}
-                    onUpdate={handleUpdateOrder}
-                />
-            )} */}
-
-            {/* You would need to create an OrderUpdateForm component */}
-            {/* This is just a placeholder comment until you implement it */}
 
             <OrderUpdateForm
                 open={orderUpdateOpen}

@@ -1,10 +1,10 @@
 @use "sass:color"; // Add this import at the top
 
 // Variables
-$primary-color: #0f172a; 
-$primary-light: #1e293b; 
-$accent-color: #3b82f6; 
-$accent-hover: #2563eb; 
+$primary-color: #0f172a;
+$primary-light: #1e293b;
+$accent-color: #3b82f6;
+$accent-hover: #2563eb;
 $error-color: #ef4444;
 $text-dark: #0f172a;
 $text-medium: #475569;
@@ -14,641 +14,832 @@ $bg-white: #ffffff;
 $bg-light: #f8fafc;
 $border-radius: 0.5rem;
 $shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 $transition-speed: 0.15s;
 
 // Overlay
 .overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  z-index: 1000;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
 }
 
 // Modal
 .modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: $bg-white;
-  border-radius: $border-radius;
-  width: 90%;
-  max-width: 1000px;
-  max-height: 90vh;
-  overflow-y: auto;
-  z-index: 1001;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  
-  // Hide scrollbar but keep functionality
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Chrome/Safari/Edge */
-  }
-  -ms-overflow-style: none; /* IE/Edge */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $bg-white;
+    border-radius: $border-radius;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto;
+    z-index: 1001;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+    // Hide scrollbar but keep functionality
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+        display: none; /* Chrome/Safari/Edge */
+    }
+    -ms-overflow-style: none; /* IE/Edge */
 }
 
 // Modal header
 .modalHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.25rem 1.5rem 0.5rem;
-  border-bottom: 1px solid $border-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem 0.5rem;
+    border-bottom: 1px solid $border-color;
 }
 
 .modalTitle {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: $text-dark;
-  margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $text-dark;
+    margin: 0;
 }
 
 .closeButton {
-  background: transparent;
-  border: none;
-  color: $text-medium;
-  cursor: pointer;
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  transition: background-color $transition-speed;
-  
-  &:hover {
-    background-color: $bg-light;
-    color: $text-dark;
-  }
+    background: transparent;
+    border: none;
+    color: $text-medium;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    transition: background-color $transition-speed;
+
+    &:hover {
+        background-color: $bg-light;
+        color: $text-dark;
+    }
 }
 
 .modalDescription {
-  font-size: 0.875rem;
-  color: $text-medium;
-  padding: 0.75rem 1.5rem;
-  margin: 0;
+    font-size: 0.875rem;
+    color: $text-medium;
+    padding: 0.75rem 1.5rem;
+    margin: 0;
 }
 
 // Form layout
 .form {
-  padding: 1.5rem;
+    padding: 1.5rem;
 }
 
 .formLayout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  margin-bottom: 2rem;
-  
-  @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-  }
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    @media (min-width: 768px) {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .formColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
 }
 
 .sectionTitle {
-  font-size: 1rem;
-  font-weight: 600;
-  color: $text-dark;
-  margin: 0 0 0.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid $border-color;
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-dark;
+    margin: 0 0 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $border-color;
 }
 
 .formRow {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
 }
 
 // Form elements
 .formGroup {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
 }
 
 .label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: $text-dark;
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text-dark;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
 }
 
 .required {
-  color: $error-color;
-  margin-left: 0.25rem;
+    color: $error-color;
+    margin-left: 0.25rem;
 }
 
-.input, .textarea {
-  padding: 0.75rem 1rem;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  font-size: 0.9rem;
-  color: $text-dark;
-  transition: border-color $transition-speed, box-shadow $transition-speed;
-  
-  &:focus {
-    outline: none;
-    border-color: $accent-color;
-    box-shadow: 0 0 0 2px rgba($accent-color, 0.1);
-  }
-  
-  &::placeholder {
-    color: $text-light;
-  }
+.input,
+.textarea {
+    padding: 0.75rem 1rem;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    font-size: 0.9rem;
+    color: $text-dark;
+    transition: border-color $transition-speed, box-shadow $transition-speed;
+
+    &:focus {
+        outline: none;
+        border-color: $accent-color;
+        box-shadow: 0 0 0 2px rgba($accent-color, 0.1);
+    }
+
+    &::placeholder {
+        color: $text-light;
+    }
 }
 
 .textarea {
-  resize: vertical;
-  min-height: 100px;
+    resize: vertical;
+    min-height: 100px;
 }
 
 .errorInput {
-  border-color: $error-color;
-  
-  &:focus {
-    box-shadow: 0 0 0 2px rgba($error-color, 0.1);
-  }
+    border-color: $error-color;
+
+    &:focus {
+        box-shadow: 0 0 0 2px rgba($error-color, 0.1);
+    }
 }
 
 .errorText {
-  font-size: 0.75rem;
-  color: $error-color;
-  margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: $error-color;
+    margin-top: 0.25rem;
 }
 
 .helpText {
-  font-size: 0.75rem;
-  color: $text-medium;
-  margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: $text-medium;
+    margin-top: 0.25rem;
 }
 
 // Color input with picker
 .colorInputWrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .colorPicker {
-  position: absolute;
-  right: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  border: 1px solid $border-color;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: transparent;
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: transparent;
 }
 
 // Image uploads
 .imageUploads {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  
-  @media (min-width: 480px) {
-    grid-template-columns: 1fr 1fr;
-  }
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    @media (min-width: 480px) {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .imageUploadGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .uploadContainer {
-  border: 2px dashed $border-color;
-  border-radius: $border-radius;
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  overflow: hidden;
-  background-color: $bg-light;
-  transition: border-color $transition-speed;
-  
-  &:hover {
-    border-color: $accent-color;
-  }
+    border: 2px dashed $border-color;
+    border-radius: $border-radius;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: $bg-light;
+    transition: border-color $transition-speed;
+
+    &:hover {
+        border-color: $accent-color;
+    }
 }
 
 .hiddenInput {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
 .uploadPrompt {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  color: $text-medium;
-  text-align: center;
-  
-  span {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-  }
-  
-  small {
-    font-size: 0.75rem;
-    color: $text-light;
-    margin-top: 0.25rem;
-  }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    color: $text-medium;
+    text-align: center;
+
+    span {
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    small {
+        font-size: 0.75rem;
+        color: $text-light;
+        margin-top: 0.25rem;
+    }
 }
 
 .previewContainer {
-  position: relative;
-  width: 100%;
-  height: 100%;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .imagePreview {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .imageOverlay {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  opacity: 0;
-  transition: opacity $transition-speed;
-  
-  &:hover {
-    opacity: 1;
-  }
-  
-  span {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-  }
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 0;
+    transition: opacity $transition-speed;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    span {
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+    }
 }
 
 // Form actions
 .formActions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid $border-color;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid $border-color;
 }
 
 .cancelButton {
-  padding: 0.75rem 1.25rem;
-  border: 1px solid $border-color;
-  border-radius: $border-radius;
-  background-color: white;
-  color: $text-dark;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color $transition-speed;
-  
-  &:hover:not(:disabled) {
-    background-color: $bg-light;
-  }
-  
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+    padding: 0.75rem 1.25rem;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    background-color: white;
+    color: $text-dark;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color $transition-speed;
+
+    &:hover:not(:disabled) {
+        background-color: $bg-light;
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
 }
 
 .submitButton {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: $border-radius;
-  background-color: $accent-color;
-  color: white;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color $transition-speed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  
-  &:hover:not(:disabled) {
-    background-color: $accent-hover;
-  }
-  
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: $border-radius;
+    background-color: $primary-color;
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color $transition-speed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &:hover:not(:disabled) {
+        background-color: $primary-light;
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
 }
 
 .loader {
-  animation: spin 1s linear infinite;
-  margin-right: 0.25rem;
+    animation: spin 1s linear infinite;
+    margin-right: 0.25rem;
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 // Footer
 .formFooter {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px dashed $border-color;
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.7rem;
-  color: $text-light;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px dashed $border-color;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: $text-light;
 }
 
-.timestamp, .userInfo {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
+.timestamp,
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
 // File input styling
 .inputFile {
-  font-size: 0.875rem;
-  color: $text-medium;
-  padding: 0.5rem 0;
-  display: block;
-  width: 100%;
-  cursor: pointer;
-  
-  &::file-selector-button {
-    font-size: 0.75rem;
-    background-color: $bg-light;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
-    color: $text-dark;
-    padding: 0.4rem 0.75rem;
-    margin-right: 1rem;
+    font-size: 0.875rem;
+    color: $text-medium;
+    padding: 0.5rem 0;
+    display: block;
+    width: 100%;
     cursor: pointer;
-    transition: background-color $transition-speed;
-    
-    &:hover {
-      background-color: color.adjust($bg-light, $lightness: -5%); // Fixed: darken replaced with color.adjust
+
+    &::file-selector-button {
+        font-size: 0.75rem;
+        background-color: $bg-light;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        color: $text-dark;
+        padding: 0.4rem 0.75rem;
+        margin-right: 1rem;
+        cursor: pointer;
+        transition: background-color $transition-speed;
+
+        &:hover {
+            background-color: color.adjust(
+                $bg-light,
+                $lightness: -5%
+            ); // Fixed: darken replaced with color.adjust
+        }
     }
-  }
 }
 
 // Responsive design adjustments
 @media (max-width: 767px) {
-  .modal {
-    width: 95%;
-    padding-bottom: 1rem;
-  }
-  
-  .formRow {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-  
-  .formActions {
-    flex-direction: column-reverse;
-    
-    button {
-      width: 100%;
+    .modal {
+        width: 95%;
+        padding-bottom: 1rem;
     }
-  }
+
+    .formRow {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .formActions {
+        flex-direction: column-reverse;
+
+        button {
+            width: 100%;
+        }
+    }
 }
 
 // Toast customizations
 :global {
-  .Toastify__toast {
-    border-radius: $border-radius;
-    font-family: inherit;
-  }
-  
-  .Toastify__toast-theme--light {
-    background-color: $bg-white;
-    box-shadow: $shadow-md;
-  }
-  
-  .Toastify__toast--success {
-    border-left: 4px solid #10b981;
-  }
-  
-  .Toastify__toast--error {
-    border-left: 4px solid $error-color;
-  }
-  
-  .Toastify__toast--info {
-    border-left: 4px solid $accent-color;
-  }
-  
-  .Toastify__toast--warning {
-    border-left: 4px solid #f59e0b;
-  }
-  
-  .Toastify__progress-bar {
-    height: 3px;
-  }
+    .Toastify__toast {
+        border-radius: $border-radius;
+        font-family: inherit;
+    }
+
+    .Toastify__toast-theme--light {
+        background-color: $bg-white;
+        box-shadow: $shadow-md;
+    }
+
+    .Toastify__toast--success {
+        border-left: 4px solid #10b981;
+    }
+
+    .Toastify__toast--error {
+        border-left: 4px solid $error-color;
+    }
+
+    .Toastify__toast--info {
+        border-left: 4px solid $accent-color;
+    }
+
+    .Toastify__toast--warning {
+        border-left: 4px solid #f59e0b;
+    }
+
+    .Toastify__progress-bar {
+        height: 3px;
+    }
 }
 
 // Dark mode support
-@media (prefers-color-scheme: dark) {
-  $bg-dark: #111827;
-  $bg-dark-light: #1f2937;
-  $border-dark: #374151;
-  $text-dark-primary: #f9fafb;
-  $text-dark-secondary: #e5e7eb;
-  $text-dark-tertiary: #9ca3af;
-  
-  .modal {
-    background-color: $bg-dark;
-  }
-  
-  .modalHeader {
-    border-color: $border-dark;
-  }
-  
-  .modalTitle {
-    color: $text-dark-primary;
-  }
-  
-  .modalDescription {
-    color: $text-dark-tertiary;
-  }
-  
-  .closeButton {
-    color: $text-dark-tertiary;
-    
-    &:hover {
-      background-color: $bg-dark-light;
-      color: $text-dark-primary;
-    }
-  }
-  
-  .sectionTitle {
-    color: $text-dark-primary;
-    border-color: $border-dark;
-  }
-  
-  .label {
-    color: $text-dark-secondary;
-  }
-  
-  .input, .textarea {
-    background-color: $bg-dark-light;
-    border-color: $border-dark;
-    color: $text-dark-primary;
-    
-    &:focus {
-      border-color: $accent-color;
-    }
-    
-    &::placeholder {
-      color: $text-dark-tertiary;
-    }
-  }
-  
-  .helpText {
-    color: $text-dark-tertiary;
-  }
-  
-  .errorText {
-    color: #f87171;
-  }
-  
-  .colorPicker {
-    border-color: $border-dark;
-  }
-  
-  .uploadContainer {
-    border-color: $border-dark;
-    background-color: $bg-dark-light;
-  }
-  
-  .uploadPrompt {
-    color: $text-dark-tertiary;
-    
-    small {
-      color: $text-dark-tertiary;
-    }
-  }
-  
-  .cancelButton {
-    background-color: $bg-dark-light;
-    border-color: $border-dark;
-    color: $text-dark-primary;
-    
-    &:hover:not(:disabled) {
-      background-color: color.adjust($bg-dark-light, $lightness: 5%); // Fixed: lighten replaced with color.adjust
-    }
-  }
-  
-  .formActions, .formFooter {
-    border-color: $border-dark;
-  }
-  
-  .formFooter {
-    color: $text-dark-tertiary;
-  }
-  
-  .inputFile {
-    color: $text-dark-secondary;
-    
-    &::file-selector-button {
-      background-color: $bg-dark-light;
-      border-color: $border-dark;
-      color: $text-dark-primary;
-      
-      &:hover {
-        background-color: color.adjust($bg-dark-light, $lightness: 5%); // Fixed: lighten replaced with color.adjust
-      }
-    }
-  }
-  
-  // Toast customizations for dark mode
-  :global {
-    .Toastify__toast-theme--light {
-      background-color: $bg-dark-light;
-      color: $text-dark-primary;
-    }
-  }
-}
+// @media (prefers-color-scheme: dark) {
+//   $bg-dark: #111827;
+//   $bg-dark-light: #1f2937;
+//   $border-dark: #374151;
+//   $text-dark-primary: #f9fafb;
+//   $text-dark-secondary: #e5e7eb;
+//   $text-dark-tertiary: #9ca3af;
+
+//   .modal {
+//     background-color: $bg-dark;
+//   }
+
+//   .modalHeader {
+//     border-color: $border-dark;
+//   }
+
+//   .modalTitle {
+//     color: $text-dark-primary;
+//   }
+
+//   .modalDescription {
+//     color: $text-dark-tertiary;
+//   }
+
+//   .closeButton {
+//     color: $text-dark-tertiary;
+
+//     &:hover {
+//       background-color: $bg-dark-light;
+//       color: $text-dark-primary;
+//     }
+//   }
+
+//   .sectionTitle {
+//     color: $text-dark-primary;
+//     border-color: $border-dark;
+//   }
+
+//   .label {
+//     color: $text-dark-secondary;
+//   }
+
+//   .input, .textarea {
+//     background-color: $bg-dark-light;
+//     border-color: $border-dark;
+//     color: $text-dark-primary;
+
+//     &:focus {
+//       border-color: $accent-color;
+//     }
+
+//     &::placeholder {
+//       color: $text-dark-tertiary;
+//     }
+//   }
+
+//   .helpText {
+//     color: $text-dark-tertiary;
+//   }
+
+//   .errorText {
+//     color: #f87171;
+//   }
+
+//   .colorPicker {
+//     border-color: $border-dark;
+//   }
+
+//   .uploadContainer {
+//     border-color: $border-dark;
+//     background-color: $bg-dark-light;
+//   }
+
+//   .uploadPrompt {
+//     color: $text-dark-tertiary;
+
+//     small {
+//       color: $text-dark-tertiary;
+//     }
+//   }
+
+//   .cancelButton {
+//     background-color: $bg-dark-light;
+//     border-color: $border-dark;
+//     color: $text-dark-primary;
+
+//     &:hover:not(:disabled) {
+//       background-color: color.adjust($bg-dark-light, $lightness: 5%); // Fixed: lighten replaced with color.adjust
+//     }
+//   }
+
+//   .formActions, .formFooter {
+//     border-color: $border-dark;
+//   }
+
+//   .formFooter {
+//     color: $text-dark-tertiary;
+//   }
+
+//   .inputFile {
+//     color: $text-dark-secondary;
+
+//     &::file-selector-button {
+//       background-color: $bg-dark-light;
+//       border-color: $border-dark;
+//       color: $text-dark-primary;
+
+//       &:hover {
+//         background-color: color.adjust($bg-dark-light, $lightness: 5%); // Fixed: lighten replaced with color.adjust
+//       }
+//     }
+//   }
+
+//   // Toast customizations for dark mode
+//   :global {
+//     .Toastify__toast-theme--light {
+//       background-color: $bg-dark-light;
+//       color: $text-dark-primary;
+//     }
+//   }
+// }
 
 // Animation effects
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .modal {
-  animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.3s ease-out;
 }
 
 // Accessibility improvements
-.input:focus, 
-.textarea:focus, 
-.submitButton:focus, 
+.input:focus,
+.textarea:focus,
+.submitButton:focus,
 .cancelButton:focus,
 .closeButton:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba($accent-color, 0.5);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba($text-medium, 0.5);
 }
 
 // Current date and user info style updates
-.timestamp, .userInfo {
-  font-size: 0.7rem;
-  color: $text-light;
-  letter-spacing: 0.02em;
+.timestamp,
+.userInfo {
+    font-size: 0.7rem;
+    color: $text-light;
+    letter-spacing: 0.02em;
 }
 
 // Add timestamp display
 .timestamp {
-  &::before {
-    content: "•";
-    margin-right: 0.35rem;
-    opacity: 0.7;
-  }
+    &::before {
+        content: "•";
+        margin-right: 0.35rem;
+        opacity: 0.7;
+    }
 }
 
 // Updated for the current date and time
 .timestamp::after {
-  content: "2025-03-17 13:36:29"; // Updated timestamp as provided
-  margin-left: 0.25rem;
+    content: "2025-03-17 13:36:29"; // Updated timestamp as provided
+    margin-left: 0.25rem;
 }
 
 // Updated for the current user
 .userInfo::after {
-  content: "NamProPlayer20"; // Updated username as provided
-  margin-left: 0.25rem;
-  font-weight: 500;
+    content: "NamProPlayer20"; // Updated username as provided
+    margin-left: 0.25rem;
+    font-weight: 500;
+}
+/* Checkbox Styling */
+.checkboxContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    cursor: pointer;
+    accent-color: #0066ff;
+}
+
+.checkboxLabel {
+    font-size: 0.95rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Make the bestSeller field more visible */
+.formGroup:has(.checkboxContainer) {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    margin-bottom: 0;
+}
+filtersContainer {
+  margin-bottom: 1rem;
+}
+
+.filterToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  
+  &:hover {
+    background: #e5e7eb;
+  }
+}
+
+.filtersPanel {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.filterGroup {
+  flex: 1;
+  min-width: 200px;
+  
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    margin-bottom: 0.375rem;
+    color: #4b5563;
+  }
+}
+
+.select, .input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background-color: white;
+  font-size: 0.875rem;
+  
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b82f6;
+  }
+}
+
+.filterActions {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.applyButton, .clearButton {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.applyButton {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  
+  &:hover {
+    background: #2563eb;
+  }
+}
+
+.clearButton {
+  background: white;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+  
+  &:hover {
+    background: #f3f4f6;
+  }
+}
+
+.pagination {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pageButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background: white;
+  cursor: pointer;
+  
+  &:hover:not(:disabled) {
+    background: #f3f4f6;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.pageIndicator {
+  padding: 0 0.5rem;
+}
+
+.limitSelector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  select {
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    background-color: white;
+  }
 }

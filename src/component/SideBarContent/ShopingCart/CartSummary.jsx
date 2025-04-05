@@ -11,14 +11,17 @@ function CartSummary({
     discountCode,
     setDiscountCode,
     applyDiscount,
-    total
+    total,
+
 }) {
     const navigate = useNavigate();
     
+    // Updated to use item.price (sale price) if available, otherwise fall back to product.price
     const subtotal = cartItems
         .reduce(
             (sum, item) =>
-                sum + (quantities[item.product._id] || 0) * item.product.price,
+                sum + (quantities[item.product._id] || 0) * 
+                (item.price || item.product.price),
             0
         )
         .toFixed(2);
@@ -41,11 +44,13 @@ function CartSummary({
                 items: cartItems.map((item) => ({
                     id: item.product._id,
                     name: item.product.name,
-                    price: item.product.price,
+                    price: item.price || item.product.price, // Use sale price if available
+                    originalPrice: item.originalPrice || item.product.price, // Include original price
+                    sale: item.sale || 0, // Include sale percentage
                     quantity: quantities[item.product._id] || 0,
                     size: item.size || "Standard",
+                    color: item.color || null,
                     fSrc: item.product.fSrc,
-
                 })),
                 deliveryDate: {
                     start: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days from now

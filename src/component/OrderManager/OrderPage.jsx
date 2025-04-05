@@ -10,7 +10,8 @@ import {
     Calendar,
     Clock,
     Filter,
-    RefreshCw
+    RefreshCw,
+    ChevronLeft
 } from "lucide-react";
 import orderService from "@apis/orderService.js";
 import styles from "./OrderPage.module.scss";
@@ -21,6 +22,13 @@ const OrdersPage = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    // Pagination state
+    const [pagination, setPagination] = useState({
+        currentPage: 1,
+        totalPages: 1,
+        total: 0
+    });
 
     // Get the active tab from URL or default to "all"
     const queryParams = new URLSearchParams(location.search);
@@ -47,24 +55,63 @@ const OrdersPage = () => {
         { id: "Cancelled", label: "Cancelled" }
     ];
 
-    const fetchOrders = useCallback(async () => {
-        try {
-            setLoading(true);
-            // Get all orders for the current user
-            const data = await orderService.getUserOrders();
-            setOrders(data);
-            setError(null);
-        } catch (err) {
-            setError("Failed to load orders. Please try again.");
-            console.error("Error fetching orders:", err);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+    const fetchOrders = useCallback(
+        async (page = 1) => {
+            try {
+                setLoading(true);
+
+                // Build query parameters to match backend
+                const params = new URLSearchParams();
+                params.set("page", page);
+                params.set("limit", 10); // You can make this configurable
+
+                // Add status filter if not "all"
+                if (activeTab !== "all") {
+                    params.set("orderStatus", activeTab);
+                }
+
+                // Add date range filters if provided
+                if (dateRange.from) {
+                    params.set("startDate", dateRange.from);
+                }
+
+                if (dateRange.to) {
+                    params.set("endDate", dateRange.to);
+                }
+
+                // Call backend with query params
+                const response = await orderService.getUserOrders(
+                    params.toString()
+                );
+
+                // Check if response matches expected structure
+                if (response && response.success) {
+                    setOrders(response.orders);
+                    setPagination({
+                        currentPage: response.currentPage,
+                        totalPages: response.totalPages,
+                        total: response.total
+                    });
+                    setError(null);
+                } else {
+                    throw new Error(
+                        response?.message || "Failed to fetch orders"
+                    );
+                }
+            } catch (err) {
+                setError("Failed to load orders. Please try again.");
+                console.error("Error fetching orders:", err);
+            } finally {
+                setLoading(false);
+            }
+        },
+        [activeTab, dateRange]
+    );
 
     useEffect(() => {
-        fetchOrders();
-    }, [fetchOrders]);
+        // Reset to page 1 when filters change
+        fetchOrders(1);
+    }, [activeTab, fetchOrders]);
 
     useEffect(() => {
         // Update URL when tab changes
@@ -101,10 +148,18 @@ const OrdersPage = () => {
         setSearchQuery("");
         setSortOption("newest");
         setDateRange({ from: "", to: "" });
+        // Fetch orders with cleared filters
+        fetchOrders(1);
     };
 
     const handleRefresh = () => {
-        fetchOrders();
+        fetchOrders(pagination.currentPage);
+    };
+
+    const handlePageChange = (page) => {
+        if (page >= 1 && page <= pagination.totalPages) {
+            fetchOrders(page);
+        }
     };
 
     const getStatusIcon = (status) => {
@@ -123,6 +178,7 @@ const OrdersPage = () => {
     };
 
     const formatDate = (dateString) => {
+        if (!dateString) return "N/A";
         const options = {
             year: "numeric",
             month: "short",
@@ -135,73 +191,51 @@ const OrdersPage = () => {
         return new Intl.NumberFormat("en-US", {
             style: "currency",
             currency: "USD"
-        }).format(amount);
+        }).format(amount || 0);
     };
 
-    // Filter and sort the orders
-    const filteredOrders = orders
-        .filter((order) => {
-            // Filter by status (with null check)
-            if (activeTab !== "all" && order?.orderStatus !== activeTab) {
-                return false;
-            }
+    // Client-side search filtering
+    const filteredOrders = orders.filter((order) => {
+        if (!searchQuery) return true;
 
-            // Search by order ID, items or address (with null checks)
-            if (searchQuery) {
-                const searchLower = searchQuery.toLowerCase();
-                const matchesId = order?._id
-                    ?.toLowerCase()
-                    .includes(searchLower);
-                const matchesItems = order?.items?.some((item) =>
-                    item?.product?.name?.toLowerCase().includes(searchLower)
+        const searchLower = searchQuery.toLowerCase();
+        const matchesId = order?._id?.toLowerCase().includes(searchLower);
+        const matchesItems = order?.items?.some((item) =>
+            item?.product?.name?.toLowerCase().includes(searchLower)
+        );
+        const matchesAddress =
+            order?.shippingAddress?.street
+                ?.toLowerCase()
+                .includes(searchLower) ||
+            order?.shippingAddress?.district
+                ?.toLowerCase()
+                .includes(searchLower) ||
+            order?.shippingAddress?.cityOrProvince
+                ?.toLowerCase()
+                .includes(searchLower);
+
+        return matchesId || matchesItems || matchesAddress;
+    });
+
+    // Client-side sorting
+    const sortedOrders = [...filteredOrders].sort((a, b) => {
+        switch (sortOption) {
+            case "newest":
+                return (
+                    new Date(b?.orderedAt || 0) - new Date(a?.orderedAt || 0)
                 );
-                const matchesAddress =
-                    order?.shippingAddress?.street
-                        ?.toLowerCase()
-                        .includes(searchLower) ||
-                    order?.shippingAddress?.city
-                        ?.toLowerCase()
-                        .includes(searchLower);
-
-                if (!(matchesId || matchesItems || matchesAddress)) {
-                    return false;
-                }
-            }
-
-            // Filter by date range (with null check)
-            if (dateRange.from && order?.orderedAt) {
-                if (new Date(order.orderedAt) < new Date(dateRange.from)) {
-                    return false;
-                }
-            }
-            if (dateRange.to && order?.orderedAt) {
-                if (new Date(order.orderedAt) > new Date(dateRange.to)) {
-                    return false;
-                }
-            }
-
-            return true;
-        })
-        .sort((a, b) => {
-            switch (sortOption) {
-                case "newest":
-                    return (
-                        new Date(b?.orderedAt || 0) -
-                        new Date(a?.orderedAt || 0)
-                    );
-                case "oldest":
-                    return (
-                        new Date(a?.orderedAt || 0) -
-                        new Date(b?.orderedAt || 0)
-                    );
-                case "highToLow":
-                    return (b?.finalAmount || 0) - (a?.finalAmount || 0);
-                case "lowToHigh":
-                    return (a?.finalAmount || 0) - (b?.finalAmount || 0);
-                default:
-                    return 0;
-            }
-        });
+            case "oldest":
+                return (
+                    new Date(a?.orderedAt || 0) - new Date(b?.orderedAt || 0)
+                );
+            case "highToLow":
+                return (b?.finalAmount || 0) - (a?.finalAmount || 0);
+            case "lowToHigh":
+                return (a?.finalAmount || 0) - (b?.finalAmount || 0);
+            default:
+                return 0;
+        }
+    });
 
     // Group orders by status for tab counts
     const orderCounts = orders.reduce(
@@ -219,7 +253,7 @@ const OrdersPage = () => {
             <div className={styles.header}>
                 <h1>My Orders</h1>
                 {/* <div className={styles.orderCount}>
-                    <span>{filteredOrders.length} orders found</span>
+                    <span>{pagination.total} orders found</span>
                 </div> */}
                 <div className={styles.headerActions}>
                     <button
@@ -328,6 +362,12 @@ const OrdersPage = () => {
 
                         <div className={styles.filterActions}>
                             <button
+                                className={styles.applyFiltersButton}
+                                onClick={() => fetchOrders(1)}
+                            >
+                                Apply Filters
+                            </button>
+                            <button
                                 className={styles.clearFiltersButton}
                                 onClick={handleClearFilters}
                             >
@@ -355,9 +395,9 @@ const OrdersPage = () => {
                             Try Again
                         </button>
                     </div>
-                ) : filteredOrders.length > 0 ? (
+                ) : sortedOrders.length > 0 ? (
                     <div className={styles.ordersScrollContent}>
-                        {filteredOrders.map((order) => (
+                        {sortedOrders.map((order) => (
                             <Link
                                 to={`/account/orders/${order._id}`}
                                 className={styles.orderCard}
@@ -476,10 +516,8 @@ const OrdersPage = () => {
                                             {order.shippingAddress.district ||
                                                 "N/A"}
                                             ,{" "}
-                                            {order.shippingAddress.city ||
-                                                order.shippingAddress
-                                                    .cityOrProvince ||
-                                                "N/A"}
+                                            {order.shippingAddress
+                                                .cityOrProvince || "N/A"}
                                         </span>
                                     </div>
                                     <div className={styles.viewDetailsLink}>
@@ -509,10 +547,43 @@ const OrdersPage = () => {
                 )}
             </div>
 
+            {/* Pagination controls */}
+            {pagination.totalPages > 1 && (
+                <div className={styles.paginationContainer}>
+                    <button
+                        className={styles.paginationButton}
+                        onClick={() =>
+                            handlePageChange(pagination.currentPage - 1)
+                        }
+                        disabled={pagination.currentPage === 1}
+                    >
+                        <ChevronLeft size={16} />
+                        Previous
+                    </button>
+
+                    <div className={styles.pageInfo}>
+                        Page {pagination.currentPage} of {pagination.totalPages}
+                    </div>
+
+                    <button
+                        className={styles.paginationButton}
+                        onClick={() =>
+                            handlePageChange(pagination.currentPage + 1)
+                        }
+                        disabled={
+                            pagination.currentPage === pagination.totalPages
+                        }
+                    >
+                        Next
+                        <ChevronRight size={16} />
+                    </button>
+                </div>
+            )}
+
             <div className={styles.pageFooter}>
-                <p className={styles.lastUpdated}>
+                {/* <p className={styles.lastUpdated}>
                     Last updated: {currentDateTime}
-                </p>
+                </p> */}
             </div>
         </div>
     );
