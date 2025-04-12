@@ -160,6 +160,7 @@ function Header() {
                                 content={items.content}
                                 href={items.href}
                                 setIsOpen={setIsOpen}
+                                setType={setType}
                             />
                         </li>
                     ))}
