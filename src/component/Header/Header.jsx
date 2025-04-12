@@ -11,7 +11,8 @@ import useTrackingSizeScr from "@Hooks/useTrackingSizeScr.js";
 import useHideOnScroll from "@Hooks/useHideOnScroll.js";
 import { CiHeart } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa"; // Added social media icons
+import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io"; // Add this import for the close icon
 import { useNavigate } from "react-router-dom";
 import { CountsContext } from "@Contexts/CountContext.jsx";
 
@@ -29,7 +30,8 @@ function Header() {
         menuOverlay,
         menuItems,
         menuHidden,
-        socialIcons
+        socialIcons,
+        closeIconContainer
     } = styles;
 
     const navigate = useNavigate();
@@ -153,6 +155,12 @@ function Header() {
                 </div>
             )}
             <div className={`${menuOpen} ${isMenuOpen ? menuOpenActive : ""}`}>
+                <div
+                    className={closeIconContainer}
+                    onClick={handleMenuToggle}
+                >
+                    <IoMdClose size={"1.6rem"} />
+                </div>
                 <ul className={menuItems}>
                     {dataMenu.map((items, index) => (
                         <li key={index}>
