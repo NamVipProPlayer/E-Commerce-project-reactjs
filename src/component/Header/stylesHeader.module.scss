@@ -32,12 +32,12 @@
     @include mixins.flex_box_icon(center, center, 30px);
     cursor: pointer;
     @media screen and (max-width: 826px) {
-        //flex-wrap: wrap;
-        gap: 5px;
         display: flex;
-         flex-direction: row;
+        // flex-wrap: wrap;
         margin-bottom: 10px;
-        justify-content: space-between;
+        justify-content: flex;
+        flex-direction: row;
+        gap: 5px;
     }
 }
 
@@ -233,6 +233,30 @@
     width: 100%;
     text-align: left;
     list-style: none;
+    padding-top: 50px; // Add this to create space below the close icon
+}
+
+.closeIconContainer {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.05);
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    svg {
+        color: #333;
+    }
 }
 
 .iconWithBadge {
