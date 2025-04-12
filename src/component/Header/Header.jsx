@@ -60,7 +60,7 @@ function Header() {
                         rel="noopener noreferrer"
                         aria-label="Facebook"
                     >
-                        <FaFacebook size={"1rem"} color="#000" />
+                        <FaFacebook size={"1.5rem"} color="#000" />
                     </a>
                     <a
                         href="https://www.instagram.com/nam.map.7739/"
@@ -68,7 +68,7 @@ function Header() {
                         rel="noopener noreferrer"
                         aria-label="Instagram"
                     >
-                        <FaInstagram size={"1rem"} color="#000" />
+                        <FaInstagram size={"1.5rem"} color="#000" />
                     </a>
                     <a
                         href="https://www.linkedin.com/in/van-nam-ly-4b8889332/"
@@ -76,7 +76,7 @@ function Header() {
                         rel="noopener noreferrer"
                         aria-label="LinkedIn"
                     >
-                        <FaLinkedin size={"1rem"} color="#000" />
+                        <FaLinkedin size={"1.5rem"} color="#000" />
                     </a>
                 </div>
                 <div
