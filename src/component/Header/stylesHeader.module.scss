@@ -32,7 +32,10 @@
     @include mixins.flex_box_icon(center, center, 30px);
     cursor: pointer;
     @media screen and (max-width: 826px) {
-        flex-wrap: wrap;
+        //flex-wrap: wrap;
+        gap: 5px;
+        display: flex;
+         flex-direction: row;
         margin-bottom: 10px;
         justify-content: space-between;
     }
